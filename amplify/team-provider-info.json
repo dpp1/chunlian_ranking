@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chunlianranking-dev-10157-authRole",
+      "UnauthRoleArn": "arn:aws:iam::689709833946:role/amplify-chunlianranking-dev-10157-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::689709833946:role/amplify-chunlianranking-dev-10157-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
+      "UnauthRoleName": "amplify-chunlianranking-dev-10157-unauthRole",
+      "StackName": "amplify-chunlianranking-dev-10157",
+      "StackId": "arn:aws:cloudformation:us-west-2:689709833946:stack/amplify-chunlianranking-dev-10157/cca24240-b87e-11ee-b3fa-0a7d07a2f4bd",
+      "AmplifyAppId": "d2y4kblmd0eu3e"
+    }
+  }
+}
