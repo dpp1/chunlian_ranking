@@ -6,8 +6,6 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -33,6 +31,31 @@ const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
 
+const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
+const { Client } = require('@opensearch-project/opensearch');
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+
+const openSearchClient = new Client({
+  ...AwsSigv4Signer({
+    region: 'us-west-2',
+    service: 'es', // 'aoss' for OpenSearch Serverless
+    // Must return a Promise that resolve to an AWS.Credentials object.
+    // This function is used to acquire the credentials when the client start and
+    // when the credentials are expired.
+    // The Client will treat the Credentials as expired if within
+    // `requestTimeout` ms of expiration (default is 30000 ms).
+
+    // Example with AWS SDK V3:
+    getCredentials: () => {
+      // Any other method to acquire a new Credentials object can be used.
+      const credentialsProvider = defaultProvider();
+      return credentialsProvider();
+    },
+  }),
+  requestTimeout: 60000, // Also used for refreshing credentials in advance
+  node: 'https://search-chunlian-master-d2n6qgff3dpqnlmmle5iyot55y.aos.us-west-2.on.aws'
+});
+
 // declare a new express app
 const app = express()
 app.use(bodyParser.json())
@@ -56,21 +79,33 @@ const convertUrlType = (param, type) => {
 }
 
 /************************************
-* HTTP Get method to list objects *
-************************************/
-
+ * HTTP Get method to list objects *
+ ************************************/
 app.get(path, async function(req, res) {
-  var params = {
-    TableName: tableName,
-    Select: 'ALL_ATTRIBUTES',
+  const page = parseInt(req.query.page) || 1;
+  const from = (page - 1) * 50;
+
+  const searchParams = {
+    size: 50,
+    from: from,
+    sort: { "likesCount": {"order" : "desc" }},
+    query: {
+      match_all: {}
+    }
   };
 
   try {
-    const data = await ddbDocClient.send(new ScanCommand(params));
-    res.json(data.Items);
+    const response = await openSearchClient.search({
+      index: 'table-index',
+      body: searchParams,
+    });
+    const data = response.body;
+    const items = data.hits.hits.map(hit => hit._source);
+    console.log(items);
+    res.json(items);
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: 'Could not load items: ' + err.message});
+    res.json({error: 'Could not load items from OpenSearch: ' + err.message});
   }
 });
 

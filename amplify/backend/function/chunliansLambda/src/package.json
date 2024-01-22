@@ -7,7 +7,9 @@
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.19.1",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "@opensearch-project/opensearch": "^2.5.0",
+    "@aws-sdk/credential-provider-node": "^3.496.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
