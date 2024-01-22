@@ -32,6 +32,22 @@
     }
   },
   "function": {
+    "UserReactionsTrigger05ec392a": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "UserReactions"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "chunliansLambda": {
       "build": true,
       "dependsOn": [
@@ -91,6 +107,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_UserReactionsTrigger05ec392a_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UserReactionsTrigger05ec392a"
+        }
+      ]
+    },
+    "AMPLIFY_function_UserReactionsTrigger05ec392a_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UserReactionsTrigger05ec392a"
+        }
+      ]
+    },
     "AMPLIFY_function_chunliansLambda_deploymentBucketName": {
       "usedBy": [
         {

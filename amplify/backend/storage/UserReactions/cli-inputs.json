@@ -10,5 +10,7 @@
     "fieldType": "string"
   },
   "gsi": [],
-  "triggerFunctions": []
+  "triggerFunctions": [
+    "UserReactionsTrigger05ec392a"
+  ]
 }
