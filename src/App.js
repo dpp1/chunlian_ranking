@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import { get } from '@aws-amplify/api';
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const ChunlianList = () => {
 
   const fetchChunlians = async () => {
     try {
-      const response = await API.get('apiName', '/chunlians'); // replace 'apiName' with your actual API name
+      const response = await get('apiName', '/chunlians'); // replace 'apiName' with your actual API name
       setChunlians(response);
     } catch (error) {
       console.error("Error fetching Chunlians", error);
