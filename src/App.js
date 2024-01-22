@@ -15,11 +15,63 @@ const App = () => {
     ensureUserUUID();
   }, []);
 
+  const [showForm, setShowForm] = useState(false); // State to toggle the form visibility
+
+  const toggleForm = () => {
+    setShowForm(!showForm); // Toggle the visibility of the form
+  };
+
   return (
       <div className="App">
         <h1>春联排行榜 Chunlian Ranking</h1>
+        <button onClick={toggleForm}>提交新春联 Submit New Chunlian</button>
+        {showForm && <ChunlianForm onSubmit={toggleForm} />} {/* Show form when showForm is true */}
         <ChunlianList />
       </div>
+  );
+};
+
+const ChunlianForm = ({ onSubmit }) => {
+  const [formData, setFormData] = useState({
+    topic: '',
+    firstLine: '',
+    secondLine: '',
+    horizontalScroll: '',
+    author: '',
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Call POST API here
+    try {
+      await post({
+        apiName: 'chunliansApi',
+        path: '/chunlians',
+        options: {
+          body: { ...formData, likesCount: 0, creationDate: new Date().toISOString() },
+        },
+      });
+      alert('Chunlian submitted successfully');
+      onSubmit(); // Hide form after submission
+    } catch (error) {
+      console.error('Error submitting Chunlian', error);
+      alert('Failed to submit Chunlian');
+    }
+  };
+
+  return (
+      <form onSubmit={handleSubmit}>
+        <input name="topic" value={formData.topic} onChange={handleInputChange} placeholder="主题" />
+        <input name="firstLine" value={formData.firstLine} onChange={handleInputChange} placeholder="上联" />
+        <input name="secondLine" value={formData.secondLine} onChange={handleInputChange} placeholder="下联" />
+        <input name="horizontalScroll" value={formData.horizontalScroll} onChange={handleInputChange} placeholder="横批" />
+        <input name="author" value={formData.author} onChange={handleInputChange} placeholder="作者" />
+        <button type="submit">Submit</button>
+      </form>
   );
 };
 
