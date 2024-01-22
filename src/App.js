@@ -22,7 +22,13 @@ const ChunlianList = () => {
 
   const fetchChunlians = async () => {
     try {
-      const response = await get('chunliansApi', '/chunlians');
+      const restOperation = get({
+        apiName: 'chunliansApi',
+        path:'/chunlians'
+      });
+      const { body } = await restOperation.response;
+      const response = await body.json();
+      console.log("Fetched Chunlians", response);
       setChunlians(response);
     } catch (error) {
       console.error("Error fetching Chunlians", error);
@@ -33,7 +39,7 @@ const ChunlianList = () => {
       <div>
         {chunlians.length > 0 ? (
             chunlians.map(chunlian => (
-                <ChunlianItem key={chunlian.id} chunlian={chunlian} />
+                <ChunlianItem key={chunlian.chunlianId} chunlian={chunlian} />
             ))
         ) : (
             <p>No Chunlians found.</p> // Fallback text
@@ -43,7 +49,7 @@ const ChunlianList = () => {
 };
 
 const ChunlianItem = ({ chunlian }) => {
-  const [likes, setLikes] = useState(chunlian.likes);
+  const [likesCount, setLikesCount] = useState(chunlian.likesCount);
   const [userReaction, setUserReaction] = useState('none'); // 'liked', 'disliked', 'none'
 
   useEffect(() => {
@@ -63,7 +69,7 @@ const ChunlianItem = ({ chunlian }) => {
       likesAdjustment = userReaction === 'liked' ? -1 : 1;
     }
 
-    setLikes(likes + likesAdjustment);
+    setLikesCount(likesCount + likesAdjustment);
     setUserReaction(newReaction);
 
     // Save the new reaction in local storage
@@ -95,7 +101,7 @@ const ChunlianItem = ({ chunlian }) => {
         <p>上联: {chunlian.firstLine}</p>
         <p>下联: {chunlian.secondLine}</p>
         <p>横批: {chunlian.horizontalScroll}</p>
-        <p>{likes} likes</p>
+        <p>{likesCount} likes</p>
         <button
             onClick={() => handleReaction(userReaction === 'liked' ? 'none' : 'liked')}
             style={{ backgroundColor: userReaction === 'liked' ? 'blue' : 'grey' }}
