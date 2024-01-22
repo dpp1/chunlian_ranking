@@ -1,0 +1,10 @@
+{
+  "resourceName": "Chunlians",
+  "tableName": "Chunlians",
+  "partitionKey": {
+    "fieldName": "chunlianId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

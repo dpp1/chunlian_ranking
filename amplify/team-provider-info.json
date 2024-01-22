@@ -10,6 +10,25 @@
       "StackName": "amplify-chunlianranking-dev-10157",
       "StackId": "arn:aws:cloudformation:us-west-2:689709833946:stack/amplify-chunlianranking-dev-10157/cca24240-b87e-11ee-b3fa-0a7d07a2f4bd",
       "AmplifyAppId": "d2y4kblmd0eu3e"
+    },
+    "categories": {
+      "function": {
+        "chunliansLambda": {
+          "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
+          "s3Key": "amplify-builds/chunliansLambda-75346f38766757642b73-build.zip"
+        },
+        "usersLambda": {
+          "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
+          "s3Key": "amplify-builds/usersLambda-654e42654f3952635634-build.zip"
+        }
+      },
+      "storage": {
+        "Chunlians": {},
+        "UserReactions": {}
+      },
+      "api": {
+        "chunliansApi": {}
+      }
     }
   }
 }

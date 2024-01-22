@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/chunlians": {
+      "name": "/chunlians",
+      "lambdaFunction": "chunliansLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/users": {
+      "name": "/users",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

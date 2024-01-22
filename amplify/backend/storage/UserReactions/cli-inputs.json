@@ -1,0 +1,14 @@
+{
+  "resourceName": "UserReactions",
+  "tableName": "UserReactions",
+  "partitionKey": {
+    "fieldName": "chunlianId",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "userId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
