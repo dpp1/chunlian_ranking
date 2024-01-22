@@ -4,41 +4,29 @@ import './App.css';
 const App = () => {
   return (
       <div className="App">
-        <h1>Chunlian Ranking</h1>
+        <h1>春联排行榜 Chunlian Ranking</h1>
         <ChunlianList />
       </div>
   );
 };
 
-// Placeholder data with ISO 8601 timestamps
-const placeholderChunlians = [
-  {
-    id: 1,
-    topic: "Spring Blossoms",
-    firstLine: "花开富贵",
-    secondLine: "春满人间",
-    horizontalScroll: "春暖花开",
-    creationDate: 1705825001000,
-    author: "Li Hua",
-    likes: 15
-  },
-  {
-    id: 2,
-    topic: "Harvest Joy",
-    firstLine: "五谷丰登",
-    secondLine: "秋收喜悦",
-    horizontalScroll: "丰收年",
-    creationDate: 1705825014000,
-    author: "Wang Wei",
-    likes: 8
-  },
-  // Add more Chunlian objects as needed
-];
-
 const ChunlianList = () => {
-  const [chunlians, setChunlians] = useState(placeholderChunlians);
+  const [chunlians, setChunlians] = useState([]);
 
   console.log(chunlians); // Check if chunlians are loaded
+
+  useEffect(() => {
+    fetchChunlians();
+  }, []);
+
+  const fetchChunlians = async () => {
+    try {
+      const response = await API.get('apiName', '/chunlians'); // replace 'apiName' with your actual API name
+      setChunlians(response);
+    } catch (error) {
+      console.error("Error fetching Chunlians", error);
+    }
+  };
 
   return (
       <div>
