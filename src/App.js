@@ -22,7 +22,7 @@ const ChunlianList = () => {
 
   const fetchChunlians = async () => {
     try {
-      const response = await get('apiName', '/chunlians'); // replace 'apiName' with your actual API name
+      const response = await get('chunliansApi', '/chunlians');
       setChunlians(response);
     } catch (error) {
       console.error("Error fetching Chunlians", error);
