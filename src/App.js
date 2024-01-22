@@ -1,8 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import { get } from '@aws-amplify/api';
+import { get, post } from '@aws-amplify/api';
+import Cookies from 'js-cookie';
+import { v4 as uuidv4 } from 'uuid';
+
+const ensureUserUUID = () => {
+  if (!Cookies.get('userUUID')) {
+    Cookies.set('userUUID', uuidv4());
+  }
+};
 
 const App = () => {
+  useEffect(() => {
+    ensureUserUUID();
+  }, []);
+
   return (
       <div className="App">
         <h1>春联排行榜 Chunlian Ranking</h1>
@@ -50,34 +62,47 @@ const ChunlianList = () => {
 
 const ChunlianItem = ({ chunlian }) => {
   const [likesCount, setLikesCount] = useState(chunlian.likesCount);
-  const [userReaction, setUserReaction] = useState('none'); // 'liked', 'disliked', 'none'
+  const [userReaction, setUserReaction] = useState(0); // Changed to integer, 0 for 'none'
 
   useEffect(() => {
     // Check the user's previous reaction from local storage
     const userReactions = JSON.parse(localStorage.getItem('userReactions')) || {};
-    const reaction = userReactions[chunlian.id] || 'none';
-    setUserReaction(reaction);
-  }, [chunlian.id]);
+    const reaction = userReactions[chunlian.chunlianId];
+    // If the reaction is not found, default to 0 ('none')
+    setUserReaction(typeof reaction === 'number' ? reaction : 0);
+  }, [chunlian.chunlianId]);
+
 
   const handleReaction = (newReaction) => {
-    let likesAdjustment = 0;
-    if (newReaction === 'liked' && userReaction !== 'liked') {
-      likesAdjustment = userReaction === 'disliked' ? 2 : 1;
-    } else if (newReaction === 'disliked' && userReaction !== 'disliked') {
-      likesAdjustment = userReaction === 'liked' ? -2 : -1;
-    } else if (newReaction === 'none') {
-      likesAdjustment = userReaction === 'liked' ? -1 : 1;
-    }
+    let likesAdjustment = newReaction - userReaction;
 
     setLikesCount(likesCount + likesAdjustment);
     setUserReaction(newReaction);
 
     // Save the new reaction in local storage
     const userReactions = JSON.parse(localStorage.getItem('userReactions')) || {};
-    userReactions[chunlian.id] = newReaction;
+    userReactions[chunlian.chunlianId] = newReaction;
     localStorage.setItem('userReactions', JSON.stringify(userReactions));
 
-    // TODO: Make an API call to update the server (optional)
+
+    const userUUID = Cookies.get('userUUID');
+    const reactionData = {
+      chunlianId: chunlian.chunlianId,
+      userId: userUUID,
+      reactionValue: newReaction
+    };
+
+    try {
+      post({
+        apiName: 'chunliansApi',
+        path: `/reactions`,
+        options: {
+          body: reactionData
+        }
+      });
+    } catch (e) {
+      console.log('POST call failed: ', e);
+    }
   };
 
   // Function to format the timestamp using the system/browser's default locale
@@ -103,14 +128,14 @@ const ChunlianItem = ({ chunlian }) => {
         <p>横批: {chunlian.horizontalScroll}</p>
         <p>{likesCount} likes</p>
         <button
-            onClick={() => handleReaction(userReaction === 'liked' ? 'none' : 'liked')}
-            style={{ backgroundColor: userReaction === 'liked' ? 'blue' : 'grey' }}
+            onClick={() => handleReaction(userReaction === 1 ? 0 : 1)}
+            style={{ backgroundColor: userReaction === 1 ? 'blue' : 'grey' }}
         >
           👍
         </button>
         <button
-            onClick={() => handleReaction(userReaction === 'disliked' ? 'none' : 'disliked')}
-            style={{ backgroundColor: userReaction === 'disliked' ? 'red' : 'grey' }}
+            onClick={() => handleReaction(userReaction === -1 ? 0 : -1)}
+            style={{ backgroundColor: userReaction === -1 ? 'red' : 'grey' }}
         >
           👎
         </button>

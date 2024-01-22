@@ -17,6 +17,14 @@
           ],
           "category": "function",
           "resourceName": "usersLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "reactionsLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -38,6 +46,25 @@
           ],
           "category": "storage",
           "resourceName": "Chunlians"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "reactionsLambda": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "UserReactions"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -77,6 +104,22 @@
         {
           "category": "function",
           "resourceName": "chunliansLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactionsLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactionsLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactionsLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactionsLambda"
         }
       ]
     },
