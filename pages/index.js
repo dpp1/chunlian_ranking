@@ -47,7 +47,7 @@ const ChunlianForm = ({ onSubmit }) => {
         ...formData,
         chunlianId: uuidv4().toString(),
         likesCount: 0,
-        creationDate: new Date()
+        creationDate: Date.now()
       };
       console.log('New Chunlian Request: ', requestBody);
       await post({
