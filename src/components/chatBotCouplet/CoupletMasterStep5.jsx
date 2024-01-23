@@ -6,12 +6,14 @@ import { Row, Col, Layout } from "@douyinfe/semi-ui";
 export default function CoupletMasterStep5(props) {
 
     const { Header } = Layout;
-    const [chunlian, setChunlian] = useState({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" });
+    const [chunlian, setChunlian] = useState({ hengpi: "", shanglian: "", xialian: "" });
+    // const [chunlian, setChunlian] = useState({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" });
 
     useEffect(() => {
         console.log(props.attempts);
         console.log(props.chunlians);
-        // setChunlian(props.chunlians[props.attempts - 1][props.selection - 1]);
+        setChunlian(props.chunlians[props.selection]);
+        // setChunlian({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" })
 
         // const timeoutId = setTimeout(() => {
         //     window.location.reload();
@@ -24,7 +26,7 @@ export default function CoupletMasterStep5(props) {
         <Header style={{ height: 50 }}></Header>
         <Row type="flex" align="middle">
             <Col span={7} offset={5}>
-                <CoupletWidget coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="FunFont"  background="coupletPrinter"/>
+                <CoupletWidget coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont"  background="coupletPrinter"/>
             </Col>
             <Col span={6} offset={1} className="hint" >
                 <div>
@@ -43,9 +45,9 @@ export default function CoupletMasterStep5(props) {
                 <div className="qrCode">
                     
                 </div>
-                <div className="hint">
+                {/* <div className="hint">
                     15秒钟之后，服务下一位顾客
-                </div>
+                </div> */}
             </Col>
         </Row>
     </>;

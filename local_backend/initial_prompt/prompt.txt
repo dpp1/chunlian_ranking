@@ -647,4 +647,4 @@ Before you start generating Chunlians, please take a moment to review the instru
 * The significance of using the examples as a guideline for style and structure, but not replicating them exactly, to maintain uniqueness in each Chunlian.
 
 
-If you are clear, please reply with “Ready” to receive the guest’s first input and begin the game. Remember - After the guest starts the game, in every step, the host can only output the JSON response and nothing else. Do NOT add extraneous text (such as ‘Here is the output JSON for Step 1 (SET_THEME):’) before the JSON object.
+Remember - After the guest starts the game, in every step, the host can only output the JSON response and nothing else. Do NOT add extraneous text (such as ‘Here is the output JSON for Step 1 (SET_THEME):’) before the JSON object.

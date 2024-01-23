@@ -16,7 +16,7 @@ export default function CoupletMasterComponent() {
      * 4 : CHUNLIAN_REVIEW
      * 5 : PRINT
      */
-    const [visibleStep, setStep] = useState(5);
+    const [visibleStep, setStep] = useState(2);
     const [backgroundClassName, setBackground] = useState();
     const [voice, setVoice] = useState("");
     const [conversation, setConversation] = useState([]);
@@ -30,8 +30,8 @@ export default function CoupletMasterComponent() {
         ""
     ]
 
-    const [theme, setTheme] = useState([]);
-    const [attempts, setAttempts] = useState();
+    const [theme, setTheme] = useState('');
+    const [attempts, setAttempts] = useState(1);
     const [selection, setSelection] = useState();
     const [chunlians, setChunlians] = useState([]);
 
@@ -52,37 +52,56 @@ export default function CoupletMasterComponent() {
     }, [visibleStep]);
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            sendMessage(voice);
-        }, '3000');
-        return () => clearTimeout(timeoutId);
+        if(voice){
+            const timeoutId = setTimeout(() => {
+                sendMessage(voice);
+            }, '3000');
+            return () => clearTimeout(timeoutId);
+        }
     }, [voice]);
 
     const sendMessage = async (voice) => {
-
-        if(voice === '写春联' && visibleStep === 1){
-            setStep(2);
-            setVoice('');
+        console.log('send message -> ' + voice);
+        if(!voice){
             return;
         }
 
-        if(voice === '确认' && visibleStep === 2){
-            setStep(3);
-            setVoice('');
-            sendMessage('Generate');
+        // if(voice === '写春联' && visibleStep === 1){
+        //     setStep(2);
+        //     setVoice('');
+        //     return;
+        // }
+
+        // if(voice === '确认' && visibleStep === 2){
+        //     setStep(3);
+        //     setVoice('');
+        //     sendMessage('Generate');
+        //     return;
+        // }
+
+        let messageFromVoice = '';
+        console.log('visibleStep : ' + visibleStep);
+        if(visibleStep === 2){
+            messageFromVoice = 'theme is ' + voice;
+        } else if(visibleStep === 3){
+            messageFromVoice = voice;
+        } else if(visibleStep === 4){
+            messageFromVoice = JSON.stringify({ "feedback": voice, "attempt":  attempts});
+        } else {
             return;
         }
 
-        const newMessage = { sender: "Human", message: voice };
-        setConversation(prevConversation => [...prevConversation, newMessage]);
+        // const newMessage = { sender: "Human", message: messageFromVoice };
+        // setConversation(prevConversation => [...prevConversation, newMessage]);
         setVoice('');
 
         try {
-            const message = extractPrompt([...conversation, newMessage]);
+            // const message = extractPrompt([...conversation, newMessage]);
+            console.log('send prompt -> ' + messageFromVoice);
             const response = await fetch(api, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: message })
+                body: JSON.stringify({ prompt: messageFromVoice })
             });
 
             if (!response.ok) {
@@ -95,27 +114,29 @@ export default function CoupletMasterComponent() {
                     sender: "Assistant",
                     message: data.result
                 }]);
-                const response = JSON.parse(data.result);
+
+                // fetch json out incase output is not just a json
+                const leftBracketIndex = data.result.indexOf('{');
+                const rightBracketIndex = data.result.lastIndexOf('}');
+                console.log(data.result.substring(leftBracketIndex, rightBracketIndex + 1));
+
+                const response = JSON.parse(data.result.substring(leftBracketIndex, rightBracketIndex + 1));
                 // routing
                 const next_step = response.next_step;
                 console.log('next_step : ' + next_step);
-                if(next_step === 'CONFIRM_THEME'){
-                    console.log(response.theme);
-                    setTheme(response.theme);
+                if(next_step === 'SET_THEME'){
                     setStep(2);
                 }
                 if(next_step === 'CHUNLIAN_GEN'){
                     setStep(3);
-                    sendMessage('Generate');
+                    sendMessage('Generate for theme ' + response.theme);
                 }
                 if(next_step === 'CHUNLIAN_REVIEW'){
-                    setAttempts(response.attempts);
+                    setAttempts(attempts + 1);
                     setChunlians(response.chunlians);
                     setStep(4);
                 }
                 if(next_step === 'PRINT'){
-                    setAttempts(response.attempts);
-                    setChunlians(response.chunlians);
                     setSelection(response.selection);
                     setStep(5);
                 }
@@ -129,10 +150,11 @@ export default function CoupletMasterComponent() {
 
     return (
         <Layout className={backgroundClassName}>
+            <Header className="header" align="right" >亚马逊云科技Marketing Tech荣誉出品</Header>
             <Content >
                 {visibleStep === 1 && <CoupletMasterStep1 />}
                 {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
-                {visibleStep === 3 && <CoupletMasterStep3 />}
+                {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
                 {visibleStep === 4 && <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}/>}
                 {visibleStep === 5 && <CoupletMasterStep5 attempts={attempts} chunlians={chunlians} selection={selection}/>}
             </Content>
@@ -151,7 +173,12 @@ export default function CoupletMasterComponent() {
                             </Col>
                             <Col align="middle" span={12}>
                                 <Input size='large' className="voiceInput"  value={voice} validateStatus='warning'
-                                    onChange={(value, e) => { setVoice(value) }}
+                                    onChange={(value, e) => { 
+                                        setVoice(value); 
+                                        if(visibleStep === 2){
+                                            setTheme(value);
+                                        }
+                                    }}
                                 ></Input>
                             </Col>
                         </Row>
