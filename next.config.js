@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    unoptimized: true,
+  },
+  output: 'export',
   reactStrictMode: false,
     webpack(config, options) {
         config.module.rules.push({
@@ -20,7 +24,7 @@ const nextConfig = {
       '@douyinfe/semi-ui',
     '@douyinfe/semi-icons',
     '@douyinfe/semi-illustrations'
-  ],
+  ]
 }
 
 module.exports = nextConfig
