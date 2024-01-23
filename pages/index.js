@@ -108,7 +108,7 @@ const ChunlianList = () => {
                 <ChunlianItem key={chunlian.chunlianId} chunlian={chunlian} />
             ))
         ) : (
-            <p>No Chunlians found.</p> // Fallback text
+            <p>Loading Chunlians...</p> // Fallback text
         )}
       </div>
   );
