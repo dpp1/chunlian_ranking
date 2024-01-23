@@ -1,0 +1,21 @@
+{
+  "aws_project_region": "us-west-2",
+  "aws_cloud_logic_custom": [
+    {
+      "name": "chunliansApi",
+      "endpoint": "https://dnozwtm2d9.execute-api.us-west-2.amazonaws.com/dev",
+      "region": "us-west-2"
+    }
+  ],
+  "aws_dynamodb_all_tables_region": "us-west-2",
+  "aws_dynamodb_table_schemas": [
+    {
+      "tableName": "Chunlians-dev",
+      "region": "us-west-2"
+    },
+    {
+      "tableName": "UserReactions-dev",
+      "region": "us-west-2"
+    }
+  ]
+}
