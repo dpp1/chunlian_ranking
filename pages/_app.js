@@ -8,7 +8,9 @@ import reportWebVitals from '../src/reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../src/amplifyconfiguration.json';
 
-Amplify.configure(amplifyconfig);
+Amplify.configure(amplifyconfig, {
+  ssr: true
+});
 
 
 const ensureUserUUID = () => {
@@ -18,7 +20,16 @@ const ensureUserUUID = () => {
 };
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  ensureUserUUID();
+  return (
+      <RootLayoutThatConfiguresAmplifyOnTheClient>
+        <Component {...pageProps} />
+      </RootLayoutThatConfiguresAmplifyOnTheClient>
+  );
+}
+
+function RootLayoutThatConfiguresAmplifyOnTheClient({ children }) {
+  return <>{children}</>; // This can include additional client-side configurations if needed
 }
 
 // If you want to start measuring performance in your app, pass a function

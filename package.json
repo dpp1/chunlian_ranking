@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.0.13",
     "@aws-amplify/api": "^6.0.13",
     "@douyinfe/semi-icons": "^2.50.1",
     "@douyinfe/semi-next": "^2.50.1",
@@ -10,7 +11,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "aws-amplify": "^6.0.12",
+    "aws-amplify": "^6.0.13",
     "css-loader": "6.8.1",
     "js-cookie": "^3.0.5",
     "next": "^13.5.0",

@@ -20,7 +20,7 @@ class BedrockClaude(LLMInterface):
         prompt_config = {
             "prompt": f'\n\nHuman: {initialPromptForCoupletMaster}\n\n{prompt}\n\nAssistant:',
             "max_tokens_to_sample": 2048,
-            "temperature": 0.6,
+            "temperature": 0.7,
             "top_p": 0.4,
             "top_k": 40
         }
