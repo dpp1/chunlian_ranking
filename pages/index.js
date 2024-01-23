@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import App from './_app';
 import {get, post} from '@aws-amplify/api';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 
 const HomePage = () => {
@@ -15,6 +15,9 @@ const HomePage = () => {
   return (
       <div>
         <h1>春联排行榜 Chunlian Ranking</h1>
+        <Link href="/couplet_master">
+          <button>和春联大师写新春联 Create A New Chunlian</button>
+        </Link>
         <button onClick={toggleForm}>提交新春联 Submit New Chunlian</button>
         {showForm && <ChunlianForm onSubmit={toggleForm} />} {/* Show form when showForm is true */}
         <ChunlianList />
