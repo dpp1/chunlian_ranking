@@ -2,6 +2,9 @@
   "name": "temp_chunlian_ranking",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "dependencies": {
     "@aws-amplify/api": "^6.0.13",
     "@douyinfe/semi-icons": "^2.50.1",
