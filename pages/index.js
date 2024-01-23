@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {get, post} from '@aws-amplify/api';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import {v4 as uuidv4} from 'uuid';
 
 
 const HomePage = () => {
@@ -42,11 +43,18 @@ const ChunlianForm = ({ onSubmit }) => {
     e.preventDefault();
     // Call POST API here
     try {
+      const requestBody = {
+        ...formData,
+        chunlianId: uuidv4().toString(),
+        likesCount: 0,
+        creationDate: new Date()
+      };
+      console.log('New Chunlian Request: ', requestBody);
       await post({
         apiName: 'chunliansApi',
         path: '/chunlians',
         options: {
-          body: { ...formData, likesCount: 0, creationDate: new Date().toISOString() },
+          body: requestBody,
         },
       });
       alert('Chunlian submitted successfully');
