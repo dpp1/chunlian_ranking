@@ -22,10 +22,10 @@
     "css-loader": "6.8.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "next start",
+    "build": "next build",
+    "test": "next test",
+    "lint": "next lint"
   },
   "eslintConfig": {
     "extends": [
