@@ -6,9 +6,8 @@ import CoupletMasterStep3 from "../src/components/chatBotCouplet/CoupletMasterSt
 import CoupletMasterStep4 from "../src/components/chatBotCouplet/CoupletMasterStep4";
 import CoupletMasterStep5 from "../src/components/chatBotCouplet/CoupletMasterStep5";
 import React, { useState, useEffect } from "react";
+import GlobalConfig from "../src/backend_endpoint_config";
 import { Layout, Card, Breadcrumb, Button, Space, Tag, Row, Col, Input } from "@douyinfe/semi-ui";
-import GlobalConfig from '../src/backend_endpoint_config';
-
 export default function CoupletMasterComponent() {
     /**
      * 1 : SET_THEME
@@ -17,10 +16,19 @@ export default function CoupletMasterComponent() {
      * 4 : CHUNLIAN_REVIEW
      * 5 : PRINT
      */
-    const [visibleStep, setStep] = useState(2);
+    const [visibleStep, setStep] = useState(5);
     const [backgroundClassName, setBackground] = useState();
     const [voice, setVoice] = useState("");
     const [conversation, setConversation] = useState([]);
+
+    const hints = [
+        "", 
+        "", 
+        "点击桌面话筒按钮开始说话，说完之后再点击一次结束", 
+        "对联正在生成中，请稍等", 
+        "选择并打印你喜欢的对联，例如“打印第二幅”。您还可以更换新年愿望，请说“再来一次”", 
+        ""
+    ]
 
     const [theme, setTheme] = useState([]);
     const [attempts, setAttempts] = useState();
@@ -52,28 +60,20 @@ export default function CoupletMasterComponent() {
 
     const sendMessage = async (voice) => {
 
-        if ((voice === undefined || voice.trim() === '')
-            || (visibleStep !== 2 && visibleStep !== 3 && visibleStep !== 4)) {
-            voice = '';
+        if(voice === '写春联' && visibleStep === 1){
+            setStep(2);
+            setVoice('');
             return;
         }
-        let messageToSend;
 
-        if(visibleStep === 2) {
+        if(voice === '确认' && visibleStep === 2){
             setStep(3);
-            messageToSend = 'theme is ' + voice;
-        } else if(visibleStep === 3) {
-            setStep(4);
-            messageToSend = 'generate for theme ' + voice;
-        } else if(visibleStep === 4) {
-            const inputObject = {
-                "feedback": voice,
-                "attempt": attempts
-            }
-            messageToSend = JSON.stringify(inputObject);
+            setVoice('');
+            sendMessage('Generate');
+            return;
         }
 
-        const newMessage = { sender: "Human", message: messageToSend };
+        const newMessage = { sender: "Human", message: voice };
         setConversation(prevConversation => [...prevConversation, newMessage]);
         setVoice('');
 
@@ -106,7 +106,7 @@ export default function CoupletMasterComponent() {
                 }
                 if(next_step === 'CHUNLIAN_GEN'){
                     setStep(3);
-                    sendMessage('generate for theme ' + voice);
+                    sendMessage('Generate');
                 }
                 if(next_step === 'CHUNLIAN_REVIEW'){
                     setAttempts(response.attempts);
@@ -140,14 +140,17 @@ export default function CoupletMasterComponent() {
                 <Layout>
                     <Content>
                         <Row type="flex" justify="center">
-                            <Col align="middle">
-                                <img className="AudioIcon" src="/couplet/话筒.svg" />
+                            <Col align="middle" className="hint">
+                                {hints[visibleStep]}
                             </Col>
                         </Row>
                         <br/>
-                        <Row type="flex" justify="center">
+                        <Row type="flex" justify="center" gutter={8}>
+                            <Col align="right" span={1}>
+                                <div className="audioIcon"/>
+                            </Col>
                             <Col align="middle" span={12}>
-                                <Input placeholder='点击桌面话筒按钮开始说话，再点击一次结束说话' size='large' className="voiceInput"  value={voice} validateStatus='warning'
+                                <Input size='large' className="voiceInput"  value={voice} validateStatus='warning'
                                     onChange={(value, e) => { setVoice(value) }}
                                 ></Input>
                             </Col>

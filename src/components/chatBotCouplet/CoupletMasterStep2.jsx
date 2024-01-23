@@ -16,7 +16,7 @@ export default function CoupletMasterStep2(props) {
         <div className="denglong4"/>
         <Row type="flex" justify="center" align="middle">
             <Col span={12}>
-                <Header style={{ height: 500 }}></Header>
+                <Header style={{ height: 700 }}></Header>
                 <div align="center">
                     <Input placeholder='' size='large' className="themeInput" validateStatus='warning' value={theme}
                         onChange={(value, e) => {

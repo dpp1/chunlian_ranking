@@ -17,6 +17,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    height: 99vh;
 }
 
 .background3 {
@@ -24,20 +25,23 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    height: 99vh;
 }
 
 .background4 {
-    background-image: url("img/有字背景-2.png");
+    background-image: url("img/对联第三页.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    height: 99vh;
 }
 
 .background5 {
-    background-image: url("img/打印预览.png");
+    background-image: url("img/对联第三页.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    height: 99vh;
 }
 
 .denglong1 {
@@ -103,8 +107,34 @@
     src: url(font/SanJiChuMoTi-2.ttf);
 }
 
-.AudioIcon{
-    width : 100px;
+.audioIcon{
+    z-index: 99999;
+    width : 40px;
+    height: 100%;
+    background-image: url("img/话筒.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.hint{
+    font-family: OrdinaryFont;
+    font-size: 32px;
+}
+
+.background2 .hint{
+    color: azure;
+}
+
+.background3 .hint{
+    color: rgb(229, 31, 41);
+}
+
+.background4 .hint{
+    color: rgb(229, 31, 41);
+}
+
+.background5 .hint{
+    color: rgb(229, 31, 41);
 }
 
 .title {
@@ -190,6 +220,7 @@
     left: -37px;
 }
 
+/* 打印页 */
 .coupletPrinter {
     background-image: url("img/春联A4纸-H.png");
     background-repeat: no-repeat;
@@ -197,7 +228,69 @@
     background-position: center center;
     /* background-size: cover; */
     /* width: 718px; */
-    background-size: auto 100%;
+    background-size: 100% 100%;
     /* height: 100%; */
     /* z-index: 99999; */
+}
+
+.coupletPrinter .wrap {
+    padding-top: 100px;
+    padding-bottom: 50px
+}
+
+.coupletPrinter .wrap .canvas-mode-2 {
+    width: 480px;
+    margin: 0vh auto 0
+}
+
+.coupletPrinter .wrap .canvas-mode-2 .row {
+    display: flex;
+    justify-content: space-between
+}
+
+.coupletPrinter .wrap .canvas-mode-2 .row:nth-of-type(1) {
+    justify-content: center;
+    margin-bottom: 15px
+}
+
+.coupletPrinter .wrap .canvas-mode-2 #canvas-top {
+    background-image: url("img/hp.jpeg");
+    background-repeat: no-repeat;
+    width: 340px;
+    height: 90px;
+    background-size: 100% auto;
+}
+
+.coupletPrinter .wrap .canvas-mode-2 #canvas-left {
+    background-image: url("img/dl.jpeg");
+    background-repeat: no-repeat;
+    width: 90px;
+    background-size: 100% 100%;
+}
+
+.coupletPrinter .wrap .canvas-mode-2 #canvas-right {
+    background-image: url("img/dl.jpeg");
+    background-repeat: no-repeat;
+    width: 90px;
+    background-size: 100% 100%;
+}
+
+.coupletPrinter .wrap .canvas-mode-2 .dl-top {
+    position: relative;
+    top: -14px;
+    left: -30px;
+}
+
+.coupletPrinter .wrap .canvas-mode-2 .dl-left-right {
+    position: relative;
+    top: 20px;
+    left: -37px;
+}
+
+.qrCode {
+    background-image: url("img/qrCode.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 150px;
 }
