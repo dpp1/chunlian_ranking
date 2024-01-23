@@ -23,6 +23,19 @@ yarn-debug.log*
 yarn-error.log*
 /.idea/
 
+#python & misc
+.vscode/
+__pycache__/
+
+**/venv/
+**/.venv/
+
+**/__pycache__/
+**/.next/
+**/node_modules/
+**/.DS_Store
+**/pdf_save/
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

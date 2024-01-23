@@ -1,0 +1,203 @@
+.background {
+    background-image: url("img/background1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.background1 {
+    background-image: url("img/对联第一页.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.background2 {
+    background-image: url("img/对联第二页.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.background3 {
+    background-image: url("img/对联第三页.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.background4 {
+    background-image: url("img/有字背景-2.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.background5 {
+    background-image: url("img/打印预览.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.denglong1 {
+    z-index: 99999;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    width: 340px;
+    height: 100%;
+    background-image: url("img/瘦灯笼.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.denglong2 {
+    z-index: 99999;
+    position:absolute;
+    top: 0px;
+    left: 340px;
+    width: 340px;
+    height: 100%;
+    background-image: url("img/胖灯笼.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.denglong3 {
+    z-index: 99999;
+    position:absolute;
+    top: 0px;
+    right: 340px;
+    width: 340px;
+    height: 100%;
+    background-image: url("img/胖灯笼.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.denglong4 {
+    z-index: 99999;
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    width: 340px;
+    height: 100%;
+    background-image: url("img/瘦灯笼.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@font-face {
+    font-family: OrdinaryFont;
+    src: url(font/SanJiChunLianZiTiJian-2.ttf);
+}
+
+@font-face {
+    font-family: ClassicalFont;
+    src: url(font/AaJiuZhongXiao-2.ttf);
+}
+
+@font-face {
+    font-family: FunFont;
+    src: url(font/SanJiChuMoTi-2.ttf);
+}
+
+.AudioIcon{
+    width : 100px;
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: azure;
+    text-align: center;
+}
+
+.desc {
+    margin-bottom: 20px;
+    color: azure;
+    font-size: 16px;
+    text-align: center;
+}
+
+.voiceInput {
+    width: 100%;
+}
+
+.themeInput {
+    width: 100%;
+    height: 64px;
+    /* height: var(--aws-spacing-core-unit-16x, 64px); */
+    /* flex-shrink: 0; */
+}
+
+.coupletReview {
+    height: 100%;
+}
+
+.coupletReview .wrap {
+    padding-top: 100px;
+    /* padding-bottom: 350px */
+}
+
+.coupletReview .wrap .canvas-mode-2 {
+    width: 340px;
+    margin: 0vh auto 0
+}
+
+.coupletReview .wrap .canvas-mode-2 .row {
+    display: flex;
+    justify-content: space-between
+}
+
+.coupletReview .wrap .canvas-mode-2 .row:nth-of-type(1) {
+    justify-content: center;
+    margin-bottom: 15px
+}
+
+.coupletReview .wrap .canvas-mode-2 #canvas-top {
+    background-image: url("img/hp.jpeg");
+    background-repeat: no-repeat;
+    width: 340px;
+    height: 90px;
+    background-size: 100% auto;
+}
+
+.coupletReview .wrap .canvas-mode-2 #canvas-left {
+    background-image: url("img/dl.jpeg");
+    background-repeat: no-repeat;
+    width: 90px;
+    background-size: 100% 100%;
+}
+
+.coupletReview .wrap .canvas-mode-2 #canvas-right {
+    background-image: url("img/dl.jpeg");
+    background-repeat: no-repeat;
+    width: 90px;
+    background-size: 100% 100%;
+}
+
+.coupletReview .wrap .canvas-mode-2 .dl-top {
+    position: relative;
+    top: -14px;
+    left: -30px;
+}
+
+.coupletReview .wrap .canvas-mode-2 .dl-left-right {
+    position: relative;
+    top: 20px;
+    left: -37px;
+}
+
+.coupletPrinter {
+    background-image: url("img/春联A4纸-H.png");
+    background-repeat: no-repeat;
+    /* background-color: #eee; */
+    background-position: center center;
+    /* background-size: cover; */
+    /* width: 718px; */
+    background-size: auto 100%;
+    /* height: 100%; */
+    /* z-index: 99999; */
+}

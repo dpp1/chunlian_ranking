@@ -2,6 +2,34 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Requirements
+1. Python >= 3.8
+2. Node.js
+3. Credential of your global AWS Account
+
+## Step to Run Locally
+1. Create a new virtual python environment 
+
+```shell
+cd chunlian_ranking/local_backend
+python -m venv .venv
+source .venv/bin/activate  
+pip install -r requirements.txt
+```
+
+2. setup credential
+#### 春联
+```shell
+ada credentials update --account=689709833946 --provider=isengard --role=admin --once
+```
+
+3. run backend serve
+
+```shell
+python main.py
+```
+
+# Frontend
 ## Available Scripts
 
 In the project directory, you can run:
