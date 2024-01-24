@@ -14,8 +14,11 @@ import {
 import { useReactToPrint } from 'react-to-print';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import {v5 as uuidv5} from 'uuid';
-import {post} from '@aws-amplify/api';
+import { v5 as uuidv5 } from 'uuid';
+import { post } from '@aws-amplify/api';
+import { ImageUploader } from './ImageUploader';
+import * as htmlToImage from 'html-to-image';
+import QRCode from "react-qr-code";
 
 const MY_NAMESPACE = '86824965-20d1-49d2-a222-ac1c3bd0738c'
 
@@ -28,10 +31,12 @@ export default function CoupletMasterStep5(props) {
 
     const { Header } = Layout;
     const { Title } = Typography;
+    const [shareURL, setShareURL] = useState('');
     const [chunlian, setChunlian] = useState({ hengpi: "", shanglian: "", xialian: "" });
     const [name, setName] = useState('');
     // Whether the Chunlian is submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
@@ -43,11 +48,12 @@ export default function CoupletMasterStep5(props) {
         console.log(props.chunlians);
         setChunlian(props.chunlians[props.selection]);
         // setChunlian({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" });
-
         //1秒后自动打印
         const timeoutId = setTimeout(() => {
+            genQrCode();
             const autoprint = new URLSearchParams(window.location.search).get('autoprint');
             console.log("autoprint : " + autoprint);
+            console.log("window.location.hostname : " + window.location.hostname);
             // Check if the hostname is 'localhost' or '127.0.0.1' and autoprint is not 'false'
             if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && autoprint !== 'false') {
                 handlePrint();
@@ -56,6 +62,7 @@ export default function CoupletMasterStep5(props) {
         return () => clearTimeout(timeoutId);
 
     }, [props]);
+
     const refreshPage = () => {
         window.location.reload();
     };
@@ -107,6 +114,24 @@ export default function CoupletMasterStep5(props) {
         }
         console.log("Submitted name:", name);
         submitChunlians(name);
+    }
+
+    //照片
+    const genQrCode = () => {
+        const element = document.getElementById('coupletPhoto');
+        htmlToImage.toPng(element).then(function (dataUrl) {
+            var timestamp = (new Date()).valueOf();
+            ImageUploader.uploadImage(timestamp, dataUrl.substr(dataUrl.indexOf(',') + 1)).then((imagePath) => {
+                console.log(imagePath);
+                // 分享图片地址
+                const shareURL = 'https://d1d2ukegmn3q96.cloudfront.net/share/index.html?combine=false&imageUrl=' + imagePath;
+                setShareURL(shareURL);
+                setLoading(false);
+            })
+        })
+            .catch(function (error) {
+                console.error('oops, something went wrong!', error);
+            });
     };
 
     return <>
@@ -127,36 +152,50 @@ export default function CoupletMasterStep5(props) {
                         将为您挥毫泼墨！
                     </div>
                     <br />
-                    <div className="hint">
-                        手机扫一扫，分享这份喜悦
-                    </div>
-                    <br />
-                    <div className="qrCode" />
+                </div>
+                <div>
+                    {loading && <>
+                        <div className="loading" />
+                    </>}
+                    {!loading &&
+                        <>
+                            <div className="hint">
+                                手机扫一扫，分享这份喜悦
+                            </div>
+                            <br />
+                            <div style={{ height: "auto", maxWidth: 180, width: "100%" }} align="left">
+                                <QRCode
+                                    size={256}
+                                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                    value={shareURL}
+                                    viewBox={`0 0 256 256`}
+                                />
+                            </div>
+                        </>
+                    }
                 </div>
                 <br />
                 <div>
                     <Space>
-                        <Button onClick={refreshPage} theme='solid' size="large">再玩一次</Button>
-                        <Button onClick={handlePrint} type='secondary' theme='solid' size="large">打印春联</Button>
+                        <Button onClick={refreshPage} type='secondary' theme='solid' size="large">再玩一次</Button>
+                        <Button onClick={handlePrint} type='tertiary' theme='solid' size="large">打印春联</Button>
+                        {/* <Button onClick={genQrCode} type='secondary' theme='solid' size="large">生成二维码</Button> */}
                         {/* <Title heading={6} style={{ margin: 8 }}>自动打印</Title> */}
                         {/* <Switch checked={autoPrint} onChange={setAutoPrint} checkedText="开" uncheckedText="关" size="large" /> */}
                     </Space>
                 </div>
-                <div>
-                    <Button onClick={redirectToHome} theme='solid'>春联排行榜</Button>
-                </div>
+                <br />
                 {!isSubmitted ? (
                     // Show the form if not submitted
-                <Row type="flex" justify="center">
-                    <Col>
+                    <Space>
                         <Input
                             value={name}
                             onChange={(e) => setName(e)}
                             placeholder="填入你的笔名,不要用真名哦~"
                         />
-                        <Button onClick={handleNameSubmit} theme='solid'>提交大作</Button>
-                    </Col>
-                </Row>
+                        <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
+                        <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
+                    </Space>
                 ) : (
                     // Show submission message if submitted
                     <p>大作已提交!</p>
