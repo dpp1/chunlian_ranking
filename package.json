@@ -28,7 +28,8 @@
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "build": "next build",
+    "build-amplify": "next build",
+    "build": "next build && next-export",
     "test": "next test",
     "lint": "next lint"
   },

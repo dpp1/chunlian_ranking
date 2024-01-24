@@ -8,9 +8,7 @@ import reportWebVitals from '../src/reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../src/amplifyconfiguration.json';
 
-Amplify.configure(amplifyconfig, {
-  ssr: true
-});
+Amplify.configure(amplifyconfig);
 
 
 const ensureUserUUID = () => {
