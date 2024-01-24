@@ -28,6 +28,10 @@
         "UserReactionsTrigger05ec392a": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
           "s3Key": "amplify-builds/UserReactionsTrigger05ec392a-4342764243445a424c6b-build.zip"
+        },
+        "chunlianMasterLambda": {
+          "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
+          "s3Key": "amplify-builds/chunlianMasterLambda-2f33713979384243577a-build.zip"
         }
       },
       "storage": {

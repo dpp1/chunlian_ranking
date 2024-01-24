@@ -21,6 +21,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/chunlian-master": {
+      "name": "/chunlian-master",
+      "lambdaFunction": "chunlianMasterLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

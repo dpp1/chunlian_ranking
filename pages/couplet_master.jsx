@@ -8,6 +8,8 @@ import CoupletMasterStep5 from "../src/components/chatBotCouplet/CoupletMasterSt
 import React, { useState, useEffect } from "react";
 import GlobalConfig from "../src/backend_endpoint_config";
 import { Layout, Card, Breadcrumb, Button, Space, Tag, Row, Col, Input } from "@douyinfe/semi-ui";
+import {get, post} from '@aws-amplify/api';
+
 export default function CoupletMasterComponent() {
     /**
      * 1 : SET_THEME
@@ -22,11 +24,11 @@ export default function CoupletMasterComponent() {
     const [conversation, setConversation] = useState([]);
 
     const hints = [
-        "", 
-        "", 
-        "点击桌面话筒按钮开始说话，说完之后再点击一次结束", 
-        "对联正在生成中，请稍等", 
-        "选择并打印你喜欢的对联，例如“打印第二幅”。您还可以更换新年愿望，请说“再来一次”", 
+        "",
+        "",
+        "点击桌面话筒按钮开始说话，说完之后再点击一次结束",
+        "对联正在生成中，请稍等",
+        "选择并打印你喜欢的对联，例如“打印第二幅”。您还可以更换新年愿望，请说“再来一次”",
         ""
     ]
 
@@ -97,17 +99,17 @@ export default function CoupletMasterComponent() {
 
         try {
             // const message = extractPrompt([...conversation, newMessage]);
-            console.log('send prompt -> ' + messageFromVoice);
-            const response = await fetch(api, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: messageFromVoice })
+            console.log('sending prompt -> ' + messageFromVoice);
+
+            const restOperation = post({
+                apiName: 'chunliansApi',
+                path: `/chunlian-master`,
+                options: {
+                    headers: { 'Content-Type': 'application/json' },
+                    body: { prompt: messageFromVoice }
+                }
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
+            const { response } = await restOperation.response;
             await response.json().then(data => {
                 console.log(data.result);
                 setConversation(prevConversation => [...prevConversation, {
@@ -173,8 +175,8 @@ export default function CoupletMasterComponent() {
                             </Col>
                             <Col align="middle" span={12}>
                                 <Input size='large' className="voiceInput"  value={voice} validateStatus='warning'
-                                    onChange={(value, e) => { 
-                                        setVoice(value); 
+                                    onChange={(value, e) => {
+                                        setVoice(value);
                                         if(visibleStep === 2){
                                             setTheme(value);
                                         }

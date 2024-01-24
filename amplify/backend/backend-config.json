@@ -25,6 +25,14 @@
           ],
           "category": "function",
           "resourceName": "reactionsLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "chunlianMasterLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -45,6 +53,12 @@
           "resourceName": "UserReactions"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "chunlianMasterLambda": {
+      "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -120,6 +134,22 @@
         {
           "category": "function",
           "resourceName": "UserReactionsTrigger05ec392a"
+        }
+      ]
+    },
+    "AMPLIFY_function_chunlianMasterLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chunlianMasterLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_chunlianMasterLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chunlianMasterLambda"
         }
       ]
     },
