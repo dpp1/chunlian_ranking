@@ -179,7 +179,7 @@ export default function CoupletMasterComponent() {
               <CoupletMasterStep4 attempts={attempts} chunlians={chunlians} theme={theme}/>}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
-                                  selection={selection}/>}
+                                  selection={selection} theme={theme}/>}
         </Content>
         <Footer>
           <Layout>
