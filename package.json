@@ -29,7 +29,7 @@
     "dev": "next dev",
     "start": "next start",
     "build-amplify": "next build",
-    "build": "next build && next-export",
+    "build": "next build && next export",
     "test": "next test",
     "lint": "next lint"
   },
