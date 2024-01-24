@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "@douyinfe/semi-ui";
-import CoupletWidget from './CoupletWidget';
+import { CoupletWidget } from './CoupletWidget';
 export default function CoupletMasterStep4(props) {
     // const [attempts, setAttempts] = useState(1);
     const [chunlians, setChunlians] = useState([]);
