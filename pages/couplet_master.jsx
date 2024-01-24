@@ -170,8 +170,7 @@ export default function CoupletMasterComponent() {
 
   return (
       <Layout className={backgroundClassName}>
-        <Header className="header" align="right">亚马逊云科技Marketing
-          Tech荣誉出品</Header>
+        <Header className="header" align="right">Marketing Tech荣誉出品</Header>
         <Content>
           {visibleStep === 1 && <CoupletMasterStep1/>}
           {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
