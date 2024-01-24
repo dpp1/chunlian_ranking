@@ -88,7 +88,10 @@ app.get(path, async function(req, res) {
   const searchParams = {
     size: 50,
     from: from,
-    sort: { "likesCount": {"order" : "desc" }},
+    sort:  [
+      { "likesCount": {"order" : "desc" }},
+      { "creationDate": {"order" : "desc" }}
+    ],
     query: {
       match_all: {}
     }
