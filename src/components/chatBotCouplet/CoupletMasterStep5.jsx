@@ -1,13 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import CoupletWidget from "./CoupletWidget";
-import { Row, Col, Layout } from "@douyinfe/semi-ui";
+import React, { useState, useEffect, useRef } from "react";
+import { CoupletWidget } from "./CoupletWidget";
+import { Row, Col, Layout, Button } from "@douyinfe/semi-ui";
+import { useReactToPrint } from 'react-to-print';
+
 export default function CoupletMasterStep5(props) {
 
     const { Header } = Layout;
     const [chunlian, setChunlian] = useState({ hengpi: "", shanglian: "", xialian: "" });
     // const [chunlian, setChunlian] = useState({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" });
+
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current,
+    });
 
     useEffect(() => {
         console.log(props.attempts);
@@ -26,7 +33,7 @@ export default function CoupletMasterStep5(props) {
         <Header style={{ height: 50 }}></Header>
         <Row type="flex" align="middle">
             <Col span={7} offset={5}>
-                <CoupletWidget coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont"  background="coupletPrinter"/>
+                <CoupletWidget ref={componentRef} coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont"  background="coupletPrinter"/>
             </Col>
             <Col span={6} offset={1} className="hint" >
                 <div>
@@ -42,12 +49,9 @@ export default function CoupletMasterStep5(props) {
                 <div className="hint">
                     手机扫一扫，分享这份喜悦
                 </div>
-                <div className="qrCode">
-                    
-                </div>
-                {/* <div className="hint">
-                    15秒钟之后，服务下一位顾客
-                </div> */}
+                <br/>
+                <div className="qrCode"/>
+                <Button onClick={handlePrint} theme='solid'>打印春联</Button>
             </Col>
         </Row>
     </>;

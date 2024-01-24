@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 
-export default function CoupletWidget(props) {
+export const CoupletWidget = React.forwardRef((props, ref) => {
 
     const canvasTop = useRef(null)
     const canvasLeft = useRef(null)
@@ -42,7 +42,7 @@ export default function CoupletWidget(props) {
     }
 
 
-    return (<div className={props.background}>
+    return (<div className={props.background} ref={ref}>
         <div className="wrap" >
             <div className="canvas-mode-2">
                 <div className="row">
@@ -61,4 +61,4 @@ export default function CoupletWidget(props) {
             </div>
         </div>
     </div>);
-}
+});
