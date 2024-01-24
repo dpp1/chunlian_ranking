@@ -48,7 +48,8 @@ export default function CoupletMasterStep5(props) {
         const timeoutId = setTimeout(() => {
             const autoprint = new URLSearchParams(window.location.search).get('autoprint');
             console.log("autoprint : " + autoprint);
-            if(autoprint != 'false'){
+            // Check if the hostname is 'localhost' or '127.0.0.1' and autoprint is not 'false'
+            if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && autoprint !== 'false') {
                 handlePrint();
             }
         }, '1000');
@@ -158,8 +159,9 @@ export default function CoupletMasterStep5(props) {
                 </Row>
                 ) : (
                     // Show submission message if submitted
-                    <p>大作已提交!点击"春联排行榜"查看更多有趣春联</p>
+                    <p>大作已提交!</p>
                 )}
+                <p>点击"春联排行榜"查看更多有趣春联</p>
             </Col>
         </Row>
     </>;
