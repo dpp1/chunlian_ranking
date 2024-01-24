@@ -176,7 +176,7 @@ const ChunlianItem = ({ chunlian }) => {
 
   return (
       <div className="chunlian-item">
-        <h2>{chunlian.topic}</h2>
+        <h2>心愿: {chunlian.topic}</h2>
         <p>上联: {chunlian.firstLine}</p>
         <p>下联: {chunlian.secondLine}</p>
         <p>横批: {chunlian.horizontalScroll}</p>
