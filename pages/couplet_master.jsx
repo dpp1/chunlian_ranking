@@ -24,6 +24,8 @@ import {
   Input,
 } from '@douyinfe/semi-ui';
 import {get, post} from '@aws-amplify/api';
+import {v4 as uuidv4} from 'uuid';
+import Cookies from 'js-cookie';
 
 export default function CoupletMasterComponent() {
   /**
@@ -53,8 +55,6 @@ export default function CoupletMasterComponent() {
   const [chunlians, setChunlians] = useState([]);
 
   const {Header, Footer, Content, Sider} = Layout;
-  const endpoint = '/chatbot_couplet_master';
-  const api = `${GlobalConfig.apiHost}:${GlobalConfig.apiPort}${endpoint}`;
 
   const extractPrompt = (body) => {
     let conversationBuilder = '';
@@ -156,6 +156,7 @@ export default function CoupletMasterComponent() {
       if (next_step === 'CHUNLIAN_REVIEW') {
         setAttempts(attempts + 1);
         setChunlians(response.chunlians);
+        submitChunlian();
         setStep(4);
       }
       if (next_step === 'PRINT') {
@@ -167,6 +168,41 @@ export default function CoupletMasterComponent() {
       console.error('Error sending message:', error);
     }
   };
+
+  /**
+   * Submit chunlians to the Cloud
+   */
+  const submitChunlian = () => {
+    if (chunlians.length === 0) {
+      console.log("No Chunlians to submit")
+      return;
+    }
+    const userUUID = Cookies.get('userUUID');
+    chunlians.forEach(chunlian => {
+      try {
+        const requestBody = {
+          firstLine: chunlian.shanglian,
+          secondLine: chunlian.xialian,
+          horizontalScroll: chunlian.hengpi,
+          topic: theme,
+          userId: userUUID,
+          chunlianId: uuidv4().toString(),
+          likesCount: 0,
+          creationDate: Date.now()
+        };
+        console.log('New Chunlian Request: ', requestBody);
+        post({
+          apiName: 'chunliansApi',
+          path: '/chunlians',
+          options: {
+            body: requestBody,
+          },
+        });
+      } catch (error) {
+        console.error('Error submitting Chunlian', error);
+      }
+    });
+  }
 
   return (
       <Layout className={backgroundClassName}>
