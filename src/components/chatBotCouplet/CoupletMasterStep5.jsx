@@ -4,8 +4,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { CoupletWidget } from "./CoupletWidget";
 import { Row, Col, Layout, Button } from "@douyinfe/semi-ui";
 import { useReactToPrint } from 'react-to-print';
+import { useRouter } from 'next/router';
+
 
 export default function CoupletMasterStep5(props) {
+    const router = useRouter();
+    // Function to handle redirection to the main path
+    const redirectToHome = () => {
+        router.push('/');
+    };
 
     const { Header } = Layout;
     const [chunlian, setChunlian] = useState({ hengpi: "", shanglian: "", xialian: "" });
@@ -57,6 +64,9 @@ export default function CoupletMasterStep5(props) {
                 <Button onClick={handlePrint} theme='solid'>打印春联</Button>
                 <div>
                     <Button onClick={refreshPage} theme='solid'>再玩一次</Button>
+                </div>
+                <div>
+                    <Button onClick={redirectToHome} theme='solid'>春联排行榜</Button>
                 </div>
             </Col>
         </Row>

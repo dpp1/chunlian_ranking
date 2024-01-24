@@ -156,7 +156,6 @@ export default function CoupletMasterComponent() {
       if (next_step === 'CHUNLIAN_REVIEW') {
         setAttempts(attempts + 1);
         setChunlians(response.chunlians);
-        submitChunlian();
         setStep(4);
       }
       if (next_step === 'PRINT') {
@@ -169,41 +168,6 @@ export default function CoupletMasterComponent() {
     }
   };
 
-  /**
-   * Submit chunlians to the Cloud
-   */
-  const submitChunlian = () => {
-    if (chunlians.length === 0) {
-      console.log("No Chunlians to submit")
-      return;
-    }
-    const userUUID = Cookies.get('userUUID');
-    chunlians.forEach(chunlian => {
-      try {
-        const requestBody = {
-          firstLine: chunlian.shanglian,
-          secondLine: chunlian.xialian,
-          horizontalScroll: chunlian.hengpi,
-          topic: theme,
-          userId: userUUID,
-          chunlianId: uuidv4().toString(),
-          likesCount: 0,
-          creationDate: Date.now()
-        };
-        console.log('New Chunlian Request: ', requestBody);
-        post({
-          apiName: 'chunliansApi',
-          path: '/chunlians',
-          options: {
-            body: requestBody,
-          },
-        });
-      } catch (error) {
-        console.error('Error submitting Chunlian', error);
-      }
-    });
-  }
-
   return (
       <Layout className={backgroundClassName}>
         <Header className="header" align="right">亚马逊云科技Marketing
@@ -213,7 +177,7 @@ export default function CoupletMasterComponent() {
           {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
           {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
           {visibleStep === 4 &&
-              <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}/>}
+              <CoupletMasterStep4 attempts={attempts} chunlians={chunlians} theme={theme}/>}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection}/>}
