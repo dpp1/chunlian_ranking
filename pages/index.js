@@ -187,12 +187,12 @@ const ChunlianItem = ({ chunlian }) => {
         >
           👍
         </button>
-        <button
-            onClick={() => handleReaction(userReaction === -1 ? 0 : -1)}
-            style={{ backgroundColor: userReaction === -1 ? 'red' : 'grey' }}
-        >
-          👎
-        </button>
+        {/*<button*/}
+        {/*    onClick={() => handleReaction(userReaction === -1 ? 0 : -1)}*/}
+        {/*    style={{ backgroundColor: userReaction === -1 ? 'red' : 'grey' }}*/}
+        {/*>*/}
+        {/*  👎*/}
+        {/*</button>*/}
         <p>创作时间: {formatTimestamp(chunlian.creationDate)}</p>
         <p>作者: {chunlian.author}</p>
       </div>

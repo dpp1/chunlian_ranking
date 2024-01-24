@@ -3,45 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "@douyinfe/semi-ui";
 import { CoupletWidget } from './CoupletWidget';
-import Cookies from 'js-cookie';
-import {v4 as uuidv4} from 'uuid';
-import {post} from '@aws-amplify/api';
 export default function CoupletMasterStep4(props) {
-    /**
-     * Submit chunlians to the Cloud
-     */
-    const submitChunlians = (chunlianList) => {
-        if (chunlianList.length === 0) {
-            console.log("No Chunlians to submit")
-            return;
-        }
-        const userUUID = Cookies.get('userUUID');
-        chunlianList.forEach(chunlian => {
-            try {
-                const requestBody = {
-                    firstLine: chunlian.shanglian,
-                    secondLine: chunlian.xialian,
-                    horizontalScroll: chunlian.hengpi,
-                    topic: props.theme,
-                    userId: userUUID,
-                    chunlianId: uuidv4().toString(),
-                    likesCount: 0,
-                    creationDate: Date.now()
-                };
-                console.log('New Chunlian Request: ', requestBody);
-                post({
-                    apiName: 'chunliansApi',
-                    path: '/chunlians',
-                    options: {
-                        body: requestBody,
-                    },
-                });
-            } catch (error) {
-                console.error('Error submitting Chunlian', error);
-            }
-        });
-    }
-    submitChunlians(props.chunlians)
     // const [attempts, setAttempts] = useState(1);
     const [chunlians, setChunlians] = useState([]);
     const [chunlian1, setChunlian1] = useState({hengpi : "", shanglian : "", xialian: "" });
