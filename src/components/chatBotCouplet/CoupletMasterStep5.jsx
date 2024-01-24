@@ -28,6 +28,9 @@ export default function CoupletMasterStep5(props) {
         // return () => clearTimeout(timeoutId);
 
     }, [props]);
+    const refreshPage = () => {
+        window.location.reload();
+    };
 
     return <>
         <Header style={{ height: 50 }}></Header>
@@ -52,6 +55,9 @@ export default function CoupletMasterStep5(props) {
                 <br/>
                 <div className="qrCode"/>
                 <Button onClick={handlePrint} theme='solid'>打印春联</Button>
+                <div>
+                    <Button onClick={refreshPage} theme='solid'>再玩一次</Button>
+                </div>
             </Col>
         </Row>
     </>;

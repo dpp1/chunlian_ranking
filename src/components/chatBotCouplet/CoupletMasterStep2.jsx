@@ -17,7 +17,7 @@ export default function CoupletMasterStep2(props) {
         <Header style={{ height: 550 }}></Header>
         <Row type="flex" justify="center" align="middle">
             <Col span={14} align="center">
-                <Input placeholder='' size='large' className="themeInput" validateStatus='warning' value={props.theme}></Input>
+                {/*<Input placeholder='' size='large' className="themeInput" validateStatus='warning' value={props.theme}></Input>*/}
                 <p align="center" className="hint">大家在说：“我希望身体健康！”，“祝公司产品大卖！”，“我要脱单！”</p>
             </Col>
         </Row>

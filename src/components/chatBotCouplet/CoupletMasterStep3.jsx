@@ -9,7 +9,7 @@ export default function CoupletMasterStep3(props) {
         <Header style={{ height: 300 }}></Header>
         <Row type="flex" justify="center" align="middle">
             <Col span={8} className="hint" align="center">
-                <p align="center">AI春联大师已经收到您的心愿，正在生成对联</p>
+                <p align="center">AI春联大师正在创作对联 您的心愿是</p>
                 <h1 align="center">{props.theme}</h1>
                 <div className="loading"  />
             </Col>
