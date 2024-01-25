@@ -55,7 +55,7 @@ export default function CoupletMasterStep5(props) {
             console.log("autoprint : " + autoprint);
             console.log("window.location.hostname : " + window.location.hostname);
             // Check if the hostname is 'localhost' or '127.0.0.1' and autoprint is not 'false'
-            if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && autoprint !== 'false') {
+            if (autoprint === 'true') {
                 handlePrint();
             }
         }, '1000');
@@ -184,22 +184,23 @@ export default function CoupletMasterStep5(props) {
                         {/* <Switch checked={autoPrint} onChange={setAutoPrint} checkedText="开" uncheckedText="关" size="large" /> */}
                     </Space>
                 </div>
-                <br />
-                {!isSubmitted ? (
-                    // Show the form if not submitted
-                    <Space>
-                        <Input
-                            value={name}
-                            onChange={(e) => setName(e)}
-                            placeholder="填入你的笔名,不要用真名哦~"
-                        />
-                        <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
-                        <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
-                    </Space>
-                ) : (
-                    // Show submission message if submitted
-                    <p>大作已提交!</p>
-                )}
+                <br />     
+                <Space>
+                    {!isSubmitted ? (
+                        <>
+                            <Input
+                                value={name}
+                                onChange={(e) => setName(e)}
+                                placeholder="填入你的笔名,不要用真名哦~"
+                            />
+                            <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
+                        </>
+                    ) : (
+                        // Show submission message if submitted
+                        <p>大作已提交!</p>
+                    )}
+                    <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
+                </Space>
                 <p>点击"春联排行榜"查看更多有趣春联</p>
             </Col>
         </Row>
