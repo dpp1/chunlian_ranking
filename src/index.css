@@ -1,13 +1,39 @@
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* styles.css */
+.chunlian-item {
+    width: 100%;
+    max-width: 540px;
+    background: linear-gradient(to bottom right, #fae4d8, #ffffff);
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+@media (max-width: 600px) {
+    .chunlian-item {
+        max-width: 100%;
+    }
+}
+
+.gradient-background {
+    background: linear-gradient(to bottom right, #fcb9d3, #b39cf6); /* Replace with your colors */
+    min-height: 100vh; /* Ensure it covers the full height of the viewport */
+}
+/* Default width for mobile and small screens */
+.search-input {
+    width: 60%;
+    max-width: 480px;
+}
+
+/* Medium screens (tablets, small desktops) */
+@media (min-width: 768px) {
+    .search-input {
+        width: 80%;
+        max-width: 720px;
+    }
+}
+
+/* Large screens (large desktops) */
+@media (min-width: 992px) {
+    .search-input {
+        width: 100%;
+        min-width: 480px;
+        max-width: 960px;
+    }
 }

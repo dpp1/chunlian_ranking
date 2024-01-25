@@ -11,21 +11,13 @@ import CoupletMasterStep4
 import CoupletMasterStep5
   from '../src/components/chatBotCouplet/CoupletMasterStep5';
 import React, {useState, useEffect} from 'react';
-import GlobalConfig from '../src/backend_endpoint_config';
 import {
   Layout,
-  Card,
-  Breadcrumb,
-  Button,
-  Space,
-  Tag,
   Row,
   Col,
   Input,
 } from '@douyinfe/semi-ui';
-import {get, post} from '@aws-amplify/api';
-import {v4 as uuidv4} from 'uuid';
-import Cookies from 'js-cookie';
+import {post} from '@aws-amplify/api';
 
 export default function CoupletMasterComponent() {
   /**

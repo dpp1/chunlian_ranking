@@ -10,7 +10,6 @@ import amplifyconfig from '../src/amplifyconfiguration.json';
 
 Amplify.configure(amplifyconfig);
 
-
 const ensureUserUUID = () => {
   if (!Cookies.get('userUUID')) {
     Cookies.set('userUUID', uuidv4());

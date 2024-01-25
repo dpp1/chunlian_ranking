@@ -2,106 +2,101 @@ import React, {useEffect, useState} from 'react';
 import {get, post} from '@aws-amplify/api';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import {v4 as uuidv4} from 'uuid';
-import {IconLikeHeart} from '@douyinfe/semi-icons';
+import {IconClock, IconLikeHeart} from '@douyinfe/semi-icons';
+import GraphemeSplitter from 'grapheme-splitter';
 import {
-  Button,
+  Button, ButtonGroup,
   Card,
-  Col,
+  Descriptions, Divider, Layout,
   Rating,
-  Row,
-  Space,
-  Typography,
+  Space, Spin,
+  Form,
+  Typography, RadioGroup, Radio, Row, Col,
 } from '@douyinfe/semi-ui';
+// import { isMobile } from 'react-device-detect';
+
+const {Meta} = Card;
+const {Text} = Typography;
 
 const HomePage = () => {
-
-  const [showForm, setShowForm] = useState(false); // State to toggle the form visibility
-
-  const toggleForm = () => {
-    setShowForm(!showForm); // Toggle the visibility of the form
-  };
-
-  return (
-      <div className="grid">
-        <h1 align="center">春联排行榜</h1>
-        <hr />
-        <Row>
-          <Col span={24} offset={11}>
-            <Link href="/couplet_master">
-              <Button theme="solid">我也要写春联</Button>
-            </Link>
-          </Col>
-        </Row>
-        <br/>
-        {/*<button onClick={toggleForm}>提交新春联 Submit New Chunlian</button>*/}
-        {/*{showForm && <ChunlianForm onSubmit={toggleForm} />} /!* Show form when showForm is true *!/*/}
-        <Row>
-          <Col span={24} offset={8}>
-            <ChunlianList/>
-          </Col>
-        </Row>
-
-      </div>
-  );
-};
-
-const ChunlianForm = ({onSubmit}) => {
-  const [formData, setFormData] = useState({
-    topic: '',
-    firstLine: '',
-    secondLine: '',
-    horizontalScroll: '',
-    author: '',
-  });
-
-  const handleInputChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Call POST API here
-    try {
-      const requestBody = {
-        ...formData,
-        chunlianId: uuidv4().toString(),
-        likesCount: 0,
-        creationDate: Date.now(),
-      };
-      console.log('New Chunlian Request: ', requestBody);
-      await post({
-        apiName: 'chunliansApi',
-        path: '/chunlians',
-        options: {
-          body: requestBody,
-        },
-      });
-      alert('Chunlian submitted successfully');
-      onSubmit(); // Hide form after submission
-    } catch (error) {
-      console.error('Error submitting Chunlian', error);
-      alert('Failed to submit Chunlian');
+  const {Header, Footer, Content} = Layout;
+  const getValueLength = (str) => {
+    if (typeof str === 'string') {
+      const splitter = new GraphemeSplitter();
+      return splitter.countGraphemes(str);
+    } else {
+      return 0;
     }
   };
 
   return (
-      <form onSubmit={handleSubmit}>
-        <input name="topic" value={formData.topic} onChange={handleInputChange}
-               placeholder="主题"/>
-        <input name="firstLine" value={formData.firstLine}
-               onChange={handleInputChange} placeholder="上联"/>
-        <input name="secondLine" value={formData.secondLine}
-               onChange={handleInputChange} placeholder="下联"/>
-        <input name="horizontalScroll" value={formData.horizontalScroll}
-               onChange={handleInputChange} placeholder="横批"/>
-        <input name="author" value={formData.author}
-               onChange={handleInputChange} placeholder="作者"/>
-        <button type="submit">Submit</button>
-      </form>
+      <div className="gradient-background">
+        <Layout className="chunlian-ranking-layout">
+          <Header>
+            <br/>
+            <h1 align="center">春联大师</h1>
+            <br/>
+          </Header>
+          <div style={{padding: '0 20px'}}>
+            <Content>
+              <div align="center" style={{width: '25%', margin: '0 auto'}}>
+                <Link href="/couplet_master">
+                  <Button block theme="solid" size="large">我也要写春联</Button>
+                </Link>
+              </div>
+              <Divider margin="12px"/>
+              <h3 align="center">春联排行榜</h3>
+              <div>
+                <Row gutter={{xs: 16, sm: 16, md: 16, lg: 24, xl: 24, xxl: 24}}>
+                  <Col xs={0} sm={0} md={1} lg={2} xl={8} xxl={9}>
+                    <div className="col-content"></div>
+                  </Col>
+                  <Col xs={12} sm={12} md={10} lg={14} xl={12} xxl={12}>
+                    <div style={{width: '100%'}}>
+                      <Form layout="horizontal"
+                          // style={{width: '800px'}}
+                      >
+                        <Form.Input noLabel
+                                    field="username"
+                                    minLength={1}
+                                    maxLength={20}
+                                    getValueLength={getValueLength}
+                                    className="search-input"
+                        />
+                        <Button theme="solid"
+                                htmlType="submit">搜索春联</Button>
+                      </Form>
+                    </div>
+                  </Col>
+                  <Col xs={4} sm={4} md={5} lg={8} xl={4} xxl={3}>
+                    <div className="col-content">
+                      <RadioGroup type="button"
+                                  buttonSize="large"
+                                  defaultValue={1}>
+                        <Radio value={1}>最热</Radio>
+                        <Radio value={2}>最新</Radio>
+                      </RadioGroup>
+                    </div>
+                  </Col>
+                </Row>
+
+              </div>
+              <br/>
+              <br/>
+              <br/>
+              <ChunlianList/>
+            </Content>
+          </div>
+          <Divider margin="12px"/>
+          <Footer>
+            <div align="center">
+              <h4 align="center">MarTech 荣誉出品</h4>
+            </div>
+          </Footer>
+        </Layout>
+      </div>
   );
 };
-
 const ChunlianList = () => {
   const [chunlians, setChunlians] = useState([]);
 
@@ -127,14 +122,21 @@ const ChunlianList = () => {
   };
 
   return (
-      <div>
-        <Space vertical spacing='medium'>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+      }}>
+        <Space wrap spacing="medium">
           {chunlians.length > 0 ? (
               chunlians.map(chunlian => (
                   <ChunlianItem key={chunlian.chunlianId} chunlian={chunlian}/>
               ))
           ) : (
-              <p>Loading Chunlians...</p> // Fallback text
+              <div>
+                <Spin size="large"/>
+                <p>Loading Chunlians...</p>
+              </div>
           )}
         </Space>
       </div>
@@ -143,7 +145,7 @@ const ChunlianList = () => {
 
 const ChunlianItem = ({chunlian}) => {
   const [likesCount, setLikesCount] = useState(chunlian.likesCount);
-  const [userReaction, setUserReaction] = useState(0); // Changed to integer, 0 for 'none'
+  const [userReaction, setUserReaction] = useState(0);
 
   useEffect(() => {
     // Check the user's previous reaction from local storage
@@ -201,40 +203,66 @@ const ChunlianItem = ({chunlian}) => {
     return formattedDate;
   };
 
-  const {Meta} = Card;
-  const {Text} = Typography;
   return (
       <Card
+          className={'chunlian-item'}
           title={
             <Meta
-                title={`心愿: ${chunlian.topic}`}
-                description={`作者: ${chunlian.author} | 创作于: ${formatTimestamp(
-                    chunlian.creationDate)} | ${likesCount} 个人赞了`}
+                title={`${chunlian.topic}`}
+                description={
+                  <div>
+                    <br/>
+                    <span>作者: {chunlian.author} </span>
+                    <Divider layout="vertical" margin="12px"/>
+                    <span>{formatTimestamp(
+                        chunlian.creationDate)}</span>
+                    <Divider layout="vertical" margin="12px"/>
+                  </div>
+                }
             />
           }
-          style={{width: 480, maxWidth: 960}}
           shadows="always"
           headerExtraContent={
             <div>
-
-              <Rating style={{color: 'red'}} size={36}
-                      character={(<IconLikeHeart style={{fontSize: 36}}/>)}
+              <Rating size={36}
+                      character={(<IconLikeHeart
+                          style={{
+                            fontSize: 36, color: userReaction === 1
+                                ? 'rgba(var(--semi-pink-5), 1)'
+                                : 'rgba(var(--semi-grey-2), 1)',
+                          }}
+                      />)}
                       value={userReaction}
                       count={1}
                       onChange={() => handleReaction(
                           userReaction === 1 ? 0 : 1)}
               />
+              <br/>
+              <Text size={'small'}> {likesCount} 人已赞</Text>
             </div>
           }
-
       >
-
-        <p><Text>上联: {chunlian.firstLine}</Text></p>
-        <p><Text>下联: {chunlian.secondLine}</Text></p>
-        <p><Text>横批: {chunlian.horizontalScroll}</Text></p>
+        <Descriptions
+            align="center"
+            size="small"
+            row
+            data={[
+              {key: '上联', value: `${chunlian.firstLine}`},
+              {key: '下联', value: `${chunlian.secondLine}`},
+              {key: '横批', value: `${chunlian.horizontalScroll}`},
+            ]}
+        />
+        <div style={{
+          margin: '12px 0',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}>
+          <ButtonGroup theme="borderless" style={{marginTop: 8}}>
+            <Button>保存为图片</Button>
+          </ButtonGroup>
+        </div>
       </Card>
-  )
-      ;
+  );
 };
 
 export default HomePage;
