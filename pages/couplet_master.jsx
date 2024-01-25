@@ -30,7 +30,8 @@ export default function CoupletMasterComponent() {
   const [visibleStep, setStep] = useState(2);
   const [backgroundClassName, setBackground] = useState();
   const [voice, setVoice] = useState('');
-  const [conversation, setConversation] = useState([]);
+
+  const steps = ['', '', 'SET_THEME', 'CHUNLIAN_GEN', 'CHUNLIAN_REVIEW', 'PRINT'];
 
   const hints = [
     '',
@@ -75,31 +76,11 @@ export default function CoupletMasterComponent() {
       return;
     }
 
-    // if(voice === '写春联' && visibleStep === 1){
-    //     setStep(2);
-    //     setVoice('');
-    //     return;
-    // }
-
-    // if(voice === '确认' && visibleStep === 2){
-    //     setStep(3);
-    //     setVoice('');
-    //     sendMessage('Generate');
-    //     return;
-    // }
-
-    let messageFromVoice = '';
+    let messageFromVoice = voice;
     console.log('visibleStep : ' + visibleStep);
-    if (visibleStep === 2) {
-      messageFromVoice = 'theme is ' + voice;
-    } else if (visibleStep === 3) {
-      messageFromVoice = voice;
-    } else if (visibleStep === 4) {
-      messageFromVoice = JSON.stringify(
-          {'feedback': voice, 'attempt': attempts});
-    } else {
-      return;
-    }
+    if (visibleStep === 4) {
+        messageFromVoice = JSON.stringify({ 'feedback': voice, 'attempt': attempts });
+    } 
 
     // const newMessage = { sender: "Human", message: messageFromVoice };
     // setConversation(prevConversation => [...prevConversation, newMessage]);
@@ -114,18 +95,20 @@ export default function CoupletMasterComponent() {
         path: `/chunlian-master`,
         options: {
           headers: {'Content-Type': 'application/json'},
-          body: {prompt: messageFromVoice},
+          body: {
+            current_step: steps[visibleStep],
+            prompt: messageFromVoice,
+            is_from_booth: true
+          },
         },
       });
+      if(visibleStep === 2){
+        setStep(3);
+      }
       const {body} = await restOperation.response;
       const data = await body.json();
 
       console.log(data.result);
-      setConversation(prevConversation => [
-        ...prevConversation, {
-          sender: 'Assistant',
-          message: data.result,
-        }]);
 
       // fetch json out incase output is not just a json
       const leftBracketIndex = data.result.indexOf('{');
@@ -143,7 +126,6 @@ export default function CoupletMasterComponent() {
       }
       if (next_step === 'CHUNLIAN_GEN') {
         setStep(3);
-        sendMessage('Generate for theme ' + response.theme);
       }
       if (next_step === 'CHUNLIAN_REVIEW') {
         setAttempts(attempts + 1);

@@ -35,7 +35,7 @@ export const CoupletWidget = React.forwardRef((props, ref) => {
         context.font = "70px " + props.font;
         await document.fonts.load(context.font);
         const indexStart = 50;
-        const marge = 70 * 9 / coupletDL.length;
+        const marge = 55 * 9 / coupletDL.length;
         for (let i = 0; i < coupletDL.length; i++) {
             context.fillText(coupletDL[i], 50, indexStart + marge * i);
         };
@@ -51,10 +51,10 @@ export const CoupletWidget = React.forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div id="canvas-left" style={{height: (10 + 9 * 70) }}>
+                    <div id="canvas-left" style={{height: (10 + 9 * 55 + 10) }}>
                         <canvas className="dl-left-right" ref={canvasLeft}></canvas>
                     </div>
-                    <div id="canvas-right" style={{height: (10 + 9 * 70)}}>
+                    <div id="canvas-right" style={{height: (10 + 9 * 55 + 10)}}>
                         <canvas className="dl-left-right" ref={canvasRight}></canvas>
                     </div>
                 </div>
