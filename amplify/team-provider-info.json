@@ -31,7 +31,7 @@
         },
         "chunlianMasterLambda": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
-          "s3Key": "amplify-builds/chunlianMasterLambda-4b38764459725778684d-build.zip"
+          "s3Key": "amplify-builds/chunlianMasterLambda-58415572372b377a6f65-build.zip"
         }
       },
       "storage": {
