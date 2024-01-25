@@ -89,7 +89,7 @@ export default function CoupletMasterComponent() {
     try {
       // const message = extractPrompt([...conversation, newMessage]);
       console.log('sending prompt -> ' + messageFromVoice);
-
+      const is_from_booth = new URLSearchParams(window.location.search).get('is_from_booth');
       const restOperation = post({
         apiName: 'chunliansApi',
         path: `/chunlian-master`,
@@ -98,7 +98,7 @@ export default function CoupletMasterComponent() {
           body: {
             current_step: steps[visibleStep],
             prompt: messageFromVoice,
-            is_from_booth: true
+            is_from_booth: is_from_booth
           },
         },
       });

@@ -155,6 +155,9 @@ export default function CoupletMasterStep5(props) {
                 </div>
                 <div>
                     {loading && <>
+                        <div className="hint">
+                            正在生成分享二维码。。。
+                        </div>
                         <div className="loading" />
                     </>}
                     {!loading &&
