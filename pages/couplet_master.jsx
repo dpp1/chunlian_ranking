@@ -32,7 +32,13 @@ export default function CoupletMasterComponent() {
   const [voice, setVoice] = useState('');
   const voiceInput = useRef(null);
 
-  const steps = ['', '', 'SET_THEME', 'CHUNLIAN_GEN', 'CHUNLIAN_REVIEW', 'PRINT'];
+  const steps = [
+    '',
+    '',
+    'SET_THEME',
+    'CHUNLIAN_GEN',
+    'CHUNLIAN_REVIEW',
+    'PRINT'];
 
   const hints = [
     '',
@@ -97,7 +103,8 @@ export default function CoupletMasterComponent() {
     try {
       // const message = extractPrompt([...conversation, newMessage]);
       console.log('sending prompt -> ' + userPrompt);
-      const is_from_booth = new URLSearchParams(window.location.search).get('is_from_booth');
+      const is_from_booth = new URLSearchParams(window.location.search)
+          .get('is_from_booth') === 'true';
       const restOperation = post({
         apiName: 'chunliansApi',
         path: `/chunlian-master`,
@@ -106,12 +113,12 @@ export default function CoupletMasterComponent() {
           body: {
             current_step: steps[visibleStep],
             prompt: userPrompt,
-            is_from_booth: is_from_booth
+            is_from_booth: is_from_booth,
           },
         },
       });
-      if(visibleStep === 2){
-        console.log("Setting step to 3")
+      if (visibleStep === 2) {
+        console.log('Setting step to 3');
         setStep(3);
       }
       const {body} = await restOperation.response;
@@ -128,28 +135,41 @@ export default function CoupletMasterComponent() {
       const response = JSON.parse(
           data.result.substring(leftBracketIndex, rightBracketIndex + 1));
       // routing
-      const next_step = response.next_step;
-      console.log('next_step : ' + next_step);
-      if (next_step === 'SET_THEME') {
-        console.log("Setting step to 2")
-        setStep(2);
-      }
-      if (next_step === 'CHUNLIAN_GEN') {
-        console.log("Setting step to 3")
-        setStep(3);
-      }
-      if (next_step === 'CHUNLIAN_REVIEW') {
-        setAttempts(attempts + 1);
+      const llm_suggested_next_step = response.next_step;
+      console.log('LLM suggested next_step : ' + llm_suggested_next_step);
+      if ((visibleStep === 2 || visibleStep === 3) &&
+          llm_suggested_next_step === 'CHUNLIAN_REVIEW') {
+        // Move from Set Theme page or Chunlian Loading Page to Chunlian Review Page
         setChunlians(response.chunlians);
-        console.log("Setting step to 4")
+        console.log('Setting step to 4');
         setStep(4);
+      } else if (visibleStep === 4
+          && (llm_suggested_next_step === 'SET_THEME' ||
+              llm_suggested_next_step === 'PRINT')) {
+        // If at Chunlian Review Page
+        if (llm_suggested_next_step === 'SET_THEME') {
+          // User wants another try, check the number of attempts
+          if (attempts >= 3 && is_from_booth) {
+            //TODO: Handle the attempt limit reached case.
+            // Current Workaround, select the first and move on
+            setSelection(0);
+            setStep(5);
+          }
+          if (attempts < 3) {
+            setAttempts(attempts + 1);
+            console.log('Retrying game with attempt #', attempts);
+            console.log('Setting step to 2');
+            setStep(2);
+          }
+        } else {
+          setSelection(response.selection);
+          console.log('Setting step to 5');
+          setStep(5);
+        }
+      } else {
+        console.error('Unexpected state. visibleStep: ', visibleStep,
+            ' llm_suggested_next_step: ', llm_suggested_next_step);
       }
-      if (next_step === 'PRINT') {
-        setSelection(response.selection);
-        console.log("Setting step to 5");
-        setStep(5);
-      }
-
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -163,7 +183,8 @@ export default function CoupletMasterComponent() {
           {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
           {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
           {visibleStep === 4 &&
-              <CoupletMasterStep4 attempts={attempts} chunlians={chunlians} theme={theme}/>}
+              <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}
+                                  theme={theme}/>}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection} theme={theme}/>}
@@ -183,8 +204,11 @@ export default function CoupletMasterComponent() {
                 </Col>
                 <Col align="middle" span={12}>
                   <Input size="large" className="voiceInput" value={voice}
-                         ref={voiceInput} disabled={voiceInputDisabled[visibleStep]}
-                         validateStatus={voiceInputDisabled[visibleStep] ? 'default' : 'warning'}
+                         ref={voiceInput}
+                         disabled={voiceInputDisabled[visibleStep]}
+                         validateStatus={voiceInputDisabled[visibleStep]
+                             ? 'default'
+                             : 'warning'}
                          onChange={(value, e) => {
                            setVoice(value);
                            if (visibleStep === 2) {
