@@ -154,14 +154,15 @@ export default function CoupletMasterComponent() {
             // Current Workaround, select the first and move on
             setSelection(0);
             setStep(5);
-          }
-          if (attempts < 3) {
+          } else {
+            // Attempts < 3 or not from booth, allow retry.
             setAttempts(attempts + 1);
             console.log('Retrying game with attempt #', attempts);
             console.log('Setting step to 2');
             setStep(2);
           }
         } else {
+          // From Chunlian Review Page to Print Page
           setSelection(response.selection);
           console.log('Setting step to 5');
           setStep(5);
