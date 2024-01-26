@@ -1,5 +1,3 @@
-Prompt V4 Step CHUNLIAN_GEN
-
 You are the host in a Chunlian writing game, interacting with a guest program. Your role is to respond to the guest's input with a single output in JSON format.
 
 

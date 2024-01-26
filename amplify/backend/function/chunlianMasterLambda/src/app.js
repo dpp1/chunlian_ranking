@@ -115,6 +115,7 @@ const modelParameters = {
  */
 const invokeClaude = async (current_step, prompt,
         isFromBooth, bedrockClient) => {
+      console.log("prompt is ", prompt, " for step ", current_step);
 
       // Use the loaded prompt from the prompts object
       const initialPrompt = prompts[current_step];
@@ -125,7 +126,7 @@ const invokeClaude = async (current_step, prompt,
       }
 
       /* Claude requires you to enclose the prompt as follows: */
-      const enclosedPrompt = `Human: ${initialPrompt}\\n\\n${prompt}\n\nAssistant:`;
+      const enclosedPrompt = `Human:${initialPrompt}\\n\\nHuman:${prompt}\n\nAssistant:`;
       const payload = {
         ...modelParameters,
         prompt: enclosedPrompt,
