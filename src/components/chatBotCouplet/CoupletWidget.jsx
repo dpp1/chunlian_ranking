@@ -30,7 +30,7 @@ export const CoupletWidget = React.forwardRef((props, ref) => {
 
     const renderCoupletDL = async (coupletDL, canvas) => {
         const context = canvas.getContext('2d')
-        canvas.height="640";
+        canvas.height="515";
         // draw
         context.font = "70px " + props.font;
         await document.fonts.load(context.font);

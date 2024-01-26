@@ -178,7 +178,6 @@ export default function CoupletMasterComponent() {
 
   return (
       <Layout className={backgroundClassName}>
-        <Header className="header" align="right">Marketing Tech荣誉出品</Header>
         <Content>
           {visibleStep === 1 && <CoupletMasterStep1/>}
           {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
@@ -199,8 +198,8 @@ export default function CoupletMasterComponent() {
                 </Col>
               </Row>
               <br/>
-              <Row type="flex" justify="center" gutter={8}>
-                <Col align="right" span={1}>
+              <Row type="flex" gutter={8}>
+                <Col align="right" span={1} offset={5}>
                   <div className="audioIcon"/>
                 </Col>
                 <Col align="middle" span={12}>
@@ -217,6 +216,9 @@ export default function CoupletMasterComponent() {
                            }
                          }}
                   ></Input>
+                </Col>
+                <Col  span={6} >
+                    <div className="header" align="right">Marketing Tech荣誉出品</div>
                 </Col>
               </Row>
               <br/>

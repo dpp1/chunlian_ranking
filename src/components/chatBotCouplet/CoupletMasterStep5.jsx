@@ -48,6 +48,7 @@ export default function CoupletMasterStep5(props) {
         console.log(props.chunlians);
         setChunlian(props.chunlians[props.selection]);
         // setChunlian({ hengpi: "喜迎新春", shanglian: "莺歌燕舞新春日", xialian: "虎跃龙腾大治年" });
+        // setChunlian({ hengpi: "福星高照", shanglian: "春风化雨养生成", xialian: "日月互照运自然" });
         //1秒后自动打印
         const timeoutId = setTimeout(() => {
             genQrCode();
