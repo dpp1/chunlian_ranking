@@ -68,6 +68,17 @@ Chunlian to avoid:
 }
 
 Reason for Being Bad: It’s bad because the output xialian contained English characters “SHARED”, violating Chunlian rule 1.
+With the same theme, here’s a good example following rule 1:
+Guest’s Input:  发财 好运 亚马逊云科技
+Chunlian:
+
+{
+    "shanglian": "新机遇运势财富无限"
+    "xialian": "亚马逊云端科技同享",
+    "hengpi": "美好未来",
+    "style": "ORDINARY"
+}
+
 That’s all for Chunlian Rule 1. Important: In generating Chunlians, always align with the patterns of the good examples and avoid the mistakes highlighted in the bad ones. This ensures compliance with Chunlian Rule 1. Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this example, even if the theme is identical.
 
 Chunlian Rule 2 (Character Count Matching) [MOST CRUCIAL]: The shanglian and xialian must strictly contain an identical number of Chinese characters. They should match in character count, with each line containing either nine, seven, or five characters, no more, no less. This rule is non-negotiable and central to Chunlian integrity. Ensure absolute adherence to this rule in each Chunlian, regardless of its style.
@@ -105,6 +116,16 @@ Chunlian:
 }
 
 Reason for Being Bad: This Chunlian is bad because the shanglian contains 8 Chinese characters, violating Rule 2 as it should have exactly 7, 9, or 5 characters. The number of characters in the shanglian and xialian are not identical, with the shanglian having 8 while the xialian having 7 characters, further violating Rule 2. Additionally, the hengpi contains 6 Chinese characters, which breaches the rule that the hengpi should have exactly 4 characters. Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this Chunlian, even if the theme is identical.
+With the same theme, here’s a good example:
+Guest’s Input: 美丽的鸡
+Chunlian:
+
+{
+    "shanglian": "鸡啼黎明照大地"
+    "xialian": "太美姿容惊人间",
+    "hengpi": "清新动人",
+    "style": "ORDINARY"
+}
 
 That’s all for Chunlian Rule 2. Important: In generating Chunlians, always align with the patterns of the good examples and avoid the mistakes highlighted in the bad ones. This ensures compliance with Chunlian Rule 2.
 It is crucial that you strictly follow the character count matching rule in every Chunlian you generate. Any deviation from this rule is unacceptable. While creativity in content is encouraged, maintaining the structural integrity of Chunlians as per traditional standards is paramount.
@@ -123,7 +144,7 @@ Chunlian:
 
 Explanation: It’s good because each the Chunlian reflects a happy and auspicious mood for Chinese new year.
 You must avoid generating a Chunlian like the bad one below, which violated Chunlian Rule 3:
-Guest’s Input: 庆祝和平繁荣
+Guest’s Input: 勇敢向前
 Chunlian:
 
 {
@@ -134,6 +155,16 @@ Chunlian:
 }
 
 Reason for Being Bad: Despite the impressive imagery, this Chunlian reflects a more tumultuous and less peaceful mood, which contradicts the theme of celebrating peace and prosperity. Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this Chunlian, even if the theme is identical.
+With the same theme, here’s a good example following rule 3:
+Guest’s Input: 勇敢向前
+Chunlian:
+
+{
+    "shanglian": "勇猛精进步步高",
+    "xialian": "志坚心广事事顺",
+    "hengpi": "前程似锦",
+    "style": "ORDINARY"
+}
 
 That’s all for Chunlian Rule 3. Important: In generating Chunlians, always align with the patterns of the good examples and avoid the mistakes highlighted in the bad ones. This ensures compliance with Chunlian Rule 3.
 
@@ -205,6 +236,16 @@ Chunlian:
 }
 
 Reason for Being Bad: The characters “小康” appeared in both the xialian and the hengpi.
+With the same theme, here’s a good example following rule 5:
+Guest’s Input: 希望新年迎接小康生活
+Chunlian:
+
+{
+    "shanglian": "金蛇舞动迎新春",
+    "xialian": "玉兔添瑞庆丰年",
+    "hengpi": "欣欣向荣",
+    "style": "ORDINARY"
+}
 
 That’s all for Chunlian Rule 5. Important: In generating Chunlians, always align with the patterns of the good examples and avoid the mistakes highlighted in the bad ones. This ensures compliance with Chunlian Rule 5.  Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this Chunlian, even if the theme is identical.
 
@@ -231,6 +272,17 @@ Chunlian:
 "xialian": "天地希望处处生",
 "hengpi": "春天希望",
 "style": "ORDINARY"
+}
+
+With the same theme, here’s a good example following Chunlian rule 6:
+Guest’s Input: 春天的希望
+Chunlian:
+
+{
+    "shanglian": "红梅破雪去",
+    "xialian": "绿柳随风来",
+    "hengpi": "生机勃发",
+    "style": "ORDINARY"
 }
 
 Reason for Being Bad: This Chunlian fails to comply with Rule 6 as it simply repeats the words "春天" (spring) and "希望" (hope) from the theme, showing a lack of creative interpretation. The direct use of the theme's exact words in the Chunlian without any imaginative rephrasing or symbolic depth directly contravenes the rule's requirement for creative interpretation.  Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this Chunlian, even if the theme is identical.
@@ -265,18 +317,18 @@ Chunlian:
 
 Explanation: This is a good example following Chunlian rule 6. In this Chunlian, the principle of 对仗 is effectively demonstrated, aligning with Rule 7. The shanglian "落霞与孤鹜齐飞" (The setting sun and a solitary bird fly together) and the xialian "秋水共长天一色" (The autumn water and the vast sky share a single hue) mirror each other not only in their structure but also in their poetic imagery. Each line consists of seven characters, maintaining a structural balance. The words "落霞" (setting sun) and "秋水" (autumn water) correspond as natural elements, "孤鹜" (solitary bird) and "长天" (vast sky) match as a living being and a spatial element, respectively. Both lines paint a picture of harmony between different elements of nature, reflecting the theme of beautiful scenery. The hengpi "江山如画" (The landscape is like a painting) aptly summarizes the picturesque imagery depicted in the couplet, enhancing the overall thematic coherence.
 
-You must avoid generating a Chunlian like the bad one below, which violated Chunlian Rule 7:
+Alternative Good Example for Chunlian Rule 7:
 Guest’s Input: 春风带来好运气
 Chunlian:
 
 {
 "shanglian": "好运映门照大地",
-"xialian": "春风送暖入屠苏",
+"xialian": "东风送暖入屠苏",
 "hengpi": "春暖花开",
 "style": "ORDINARY"
 }
 
-Reason for Being Bad: This Chunlian fails to follow the '对仗' rule. The elements of the shanglian and xialian do not correspond symmetrically. '送暖' (send warmth) in the shanglian doesn't match '映门' (reflecting the door) in the xialian, disrupting the structural balance.  Important: This Chunlian above demonstrates what must be avoided when generating Chunlians. When generating Chunlians, especially avoid using phrases or structures from this Chunlian, even if the theme is identical.
+Explanation: This Chunlian adheres to Chunlian Rule 7. It demonstrates the principle of 对仗 effectively, with corresponding elements in the shanglian and xialian aligning in structure, word category, and meaning. The symmetrical balance in grammar and the thematic resonance between the lines create a harmonious and aesthetically pleasing couplet, fulfilling the requirements of the 对仗 rule.
 
 That’s all for Chunlian Rule 7. Important: In generating Chunlians, always align with the patterns of the good examples and avoid the mistakes highlighted in the bad ones. This ensures compliance with Chunlian Rule 7.
 
@@ -379,7 +431,7 @@ Chunlian:
 Explanation: This Chunlian cleverly plays with the idea of weight gain over time, a common concern during the festive season. The humorous and light-hearted tone is evident in phrases like "天增岁月人增肥" (As years pass, people gain weight), paired with the hopeful "春满乾坤福满门" (Spring fills the world, fortune fills the door). The hengpi, "节后再减" (Diet starts after the festival), humorously acknowledges the common postponement of diet plans, making it an excellent example of a 'fun' style Chunlian.
 
 Good Fun Chunlian Example 2:
-Guest’s Input: 我要发大财
+Guest’s Input: 我希望彩票大中奖
 Chunlian:
 
 {
@@ -417,24 +469,24 @@ Host’s output JSON:
 {
   "current_step": "CHUNLIAN_GEN",
   "next_step": "CHUNLIAN_REVIEW",
-  "theme": "努力挣钱",
+  "theme": "努力赚大钱",
   "chunlians": [
       {
-        "shanglian": "发愤图强兴大业"
-        "xialian": "勤劳致富建小康",
-        "hengpi": "奋勇拼搏",
+        "shanglian": "奋斗不息财源旺"
+        "xialian": "辛勤付出福气多",
+        "hengpi": "富贵双全",
         "style": "ORDINARY"
       },
       {
-        "shanglian": "长风破浪会有时"
-        "xialian": "直挂云帆济沧海",
-        "hengpi": "勇往直前",
+        "shanglian": "晨光熹微勤自强"
+        "xialian": "月色清朗梦渐光",
+        "hengpi": "努力成金",
         "style": "CLASSICAL"
       },
       {
-        "shanglian": "早中晚中早晚中"
-        "xialian": "多买少买多少买",
-        "hengpi": "中国福彩",
+        "shanglian": "辛勤打工为买房"
+        "xialian": "加班加点梦想照",
+        "hengpi": "钱途无量",
         "style":"FUN"
       }
   ]
