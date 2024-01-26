@@ -10,7 +10,7 @@ import CoupletMasterStep4
   from '../src/components/chatBotCouplet/CoupletMasterStep4';
 import CoupletMasterStep5
   from '../src/components/chatBotCouplet/CoupletMasterStep5';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Layout,
   Row,
@@ -30,6 +30,7 @@ export default function CoupletMasterComponent() {
   const [visibleStep, setStep] = useState(2);
   const [backgroundClassName, setBackground] = useState();
   const [voice, setVoice] = useState('');
+  const voiceInput = useRef(null);
 
   const steps = ['', '', 'SET_THEME', 'CHUNLIAN_GEN', 'CHUNLIAN_REVIEW', 'PRINT'];
 
@@ -40,6 +41,15 @@ export default function CoupletMasterComponent() {
     '对联正在生成中，请稍等',
     '选择并打印你喜欢的对联，例如“打印第二幅”。您还可以更换新年愿望，请说“再来一次”',
     '',
+  ];
+
+  const voiceInputDisabled = [
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
   ];
 
   const [theme, setTheme] = useState('');
@@ -59,6 +69,7 @@ export default function CoupletMasterComponent() {
 
   useEffect(() => {
     setBackground('background' + visibleStep);
+    voiceInput.current.focus();
   }, [visibleStep]);
 
   useEffect(() => {
@@ -169,8 +180,9 @@ export default function CoupletMasterComponent() {
                   <div className="audioIcon"/>
                 </Col>
                 <Col align="middle" span={12}>
-                  <Input size="large" className="voiceInput" value={voice}
-                         validateStatus="warning"
+                  <Input size="large" className="voiceInput" value={voice} 
+                         ref={voiceInput} disabled={voiceInputDisabled[visibleStep]}
+                         validateStatus={voiceInputDisabled[visibleStep] ? 'default' : 'warning'}
                          onChange={(value, e) => {
                            setVoice(value);
                            if (visibleStep === 2) {
