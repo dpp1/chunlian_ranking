@@ -254,7 +254,7 @@
 }
 
 .coupletPrinter .wrap .canvas-mode-2 {
-    width: 420px;
+    width: 85%;
     margin: 0vh auto 0
 }
 
@@ -308,4 +308,41 @@
     background-size: 100% 100%;
     width: 150px;
     height: 150px;
+}
+
+@media print {
+    body {
+        background: none;
+        padding: 0px;
+        margin: 0px;
+        color: black;
+        position: relative;
+    }
+
+    section.background5 {
+        background: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    #printHint {
+        display: none;
+    }
+
+    #printDiv {
+        display: block;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    #coupletPhoto {
+        width: 575px;
+        height: 864px;
+    }
 }

@@ -39,9 +39,9 @@ export default function CoupletMasterStep5(props) {
     const [loading, setLoading] = useState(true);
 
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    });
+    const handlePrint = () => {
+        window.print();
+    };
 
     useEffect(() => {
         console.log(props.attempts);
@@ -137,10 +137,10 @@ export default function CoupletMasterStep5(props) {
     return <>
         <Header style={{ height: 20 }}></Header>
         <Row type="flex" align="middle" gutter={16}>
-            <Col span={7} offset={5}>
+            <Col span={7} offset={5} id="printDiv">
                 <CoupletWidget ref={componentRef} coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont" background="coupletPrinter" />
             </Col>
-            <Col span={6} offset={1} >
+            <Col span={6} offset={1} id="printHint">
                 <div className="hint" >
                     <div>
                         对联正在打印中
