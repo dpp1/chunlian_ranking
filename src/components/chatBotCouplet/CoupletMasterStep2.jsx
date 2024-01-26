@@ -21,7 +21,7 @@ export default function CoupletMasterStep2(props) {
                 <h1 className="title" align="center">AI春联大师</h1>
                 <br/>
                 <p align="center" className="desc">说出您龙年的一个心愿，我们为您生成对联</p>
-                <input type="text" className="themeInput" value={props.theme} />
+                <input type="text" className="themeInput" value={props.theme} disabled/>
                 <p align="center" className="hint">大家在说：“我希望身体健康！”，“祝公司产品大卖！”，“我要脱单！”</p>
             </Col>
         </Row>
