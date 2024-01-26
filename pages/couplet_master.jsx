@@ -87,11 +87,8 @@ export default function CoupletMasterComponent() {
       return;
     }
 
-    let messageFromVoice = voice;
-    console.log('visibleStep : ' + visibleStep);
-    if (visibleStep === 4) {
-        messageFromVoice = JSON.stringify({ 'feedback': voice, 'attempt': attempts });
-    } 
+    let userPrompt = voice;
+    console.log('current step : ' + visibleStep);
 
     // const newMessage = { sender: "Human", message: messageFromVoice };
     // setConversation(prevConversation => [...prevConversation, newMessage]);
@@ -99,7 +96,7 @@ export default function CoupletMasterComponent() {
 
     try {
       // const message = extractPrompt([...conversation, newMessage]);
-      console.log('sending prompt -> ' + messageFromVoice);
+      console.log('sending prompt -> ' + userPrompt);
       const is_from_booth = new URLSearchParams(window.location.search).get('is_from_booth');
       const restOperation = post({
         apiName: 'chunliansApi',
@@ -108,12 +105,13 @@ export default function CoupletMasterComponent() {
           headers: {'Content-Type': 'application/json'},
           body: {
             current_step: steps[visibleStep],
-            prompt: messageFromVoice,
+            prompt: userPrompt,
             is_from_booth: is_from_booth
           },
         },
       });
       if(visibleStep === 2){
+        console.log("Setting step to 3")
         setStep(3);
       }
       const {body} = await restOperation.response;
@@ -133,18 +131,22 @@ export default function CoupletMasterComponent() {
       const next_step = response.next_step;
       console.log('next_step : ' + next_step);
       if (next_step === 'SET_THEME') {
+        console.log("Setting step to 2")
         setStep(2);
       }
       if (next_step === 'CHUNLIAN_GEN') {
+        console.log("Setting step to 3")
         setStep(3);
       }
       if (next_step === 'CHUNLIAN_REVIEW') {
         setAttempts(attempts + 1);
         setChunlians(response.chunlians);
+        console.log("Setting step to 4")
         setStep(4);
       }
       if (next_step === 'PRINT') {
         setSelection(response.selection);
+        console.log("Setting step to 5");
         setStep(5);
       }
 
@@ -180,7 +182,7 @@ export default function CoupletMasterComponent() {
                   <div className="audioIcon"/>
                 </Col>
                 <Col align="middle" span={12}>
-                  <Input size="large" className="voiceInput" value={voice} 
+                  <Input size="large" className="voiceInput" value={voice}
                          ref={voiceInput} disabled={voiceInputDisabled[visibleStep]}
                          validateStatus={voiceInputDisabled[visibleStep] ? 'default' : 'warning'}
                          onChange={(value, e) => {
