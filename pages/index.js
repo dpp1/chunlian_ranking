@@ -48,12 +48,13 @@ const HomePage = () => {
               <h3 align="center">春联排行榜</h3>
               <div>
                 <Row gutter={{xs: 16, sm: 16, md: 16, lg: 24, xl: 24, xxl: 24}}>
-                  <Col xs={0} sm={0} md={1} lg={2} xl={8} xxl={9}>
+                  <Col xs={0} sm={0} md={2} lg={3} xl={10} xxl={6}>
                     <div className="col-content"></div>
                   </Col>
-                  <Col xs={12} sm={12} md={10} lg={14} xl={12} xxl={12}>
+                  <Col xs={24} sm={24} md={22} lg={21} xl={14} xxl={18}>
                     <div style={{width: '100%'}}>
                       <Form layout="horizontal"
+                            style={{justifyContent:'center'}}
                           // style={{width: '800px'}}
                       >
                         <Form.Input noLabel
@@ -68,8 +69,11 @@ const HomePage = () => {
                       </Form>
                     </div>
                   </Col>
-                  <Col xs={4} sm={4} md={5} lg={8} xl={4} xxl={3}>
-                    <div className="col-content">
+                </Row>
+                <br/>
+                <Row>
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                    <div className="col-content" align={'right'}>
                       <RadioGroup type="button"
                                   buttonSize="large"
                                   defaultValue={1}>
@@ -124,10 +128,10 @@ const ChunlianList = () => {
   return (
       <div style={{
         display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
+        // justifyContent: 'center',
+        // flexWrap: 'wrap',
       }}>
-        <Space wrap spacing="medium">
+        <Space align='start' wrap spacing="medium" style={{justifyContent:'center'}}>
           {chunlians.length > 0 ? (
               chunlians.map(chunlian => (
                   <ChunlianItem key={chunlian.chunlianId} chunlian={chunlian}/>

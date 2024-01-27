@@ -7,6 +7,7 @@ import '../src/index.css';
 import reportWebVitals from '../src/reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../src/amplifyconfiguration.json';
+import Head from 'next/head';
 
 Amplify.configure(amplifyconfig);
 
@@ -19,9 +20,14 @@ const ensureUserUUID = () => {
 function MyApp({ Component, pageProps }) {
   ensureUserUUID();
   return (
-      <RootLayoutThatConfiguresAmplifyOnTheClient>
-        <Component {...pageProps} />
-      </RootLayoutThatConfiguresAmplifyOnTheClient>
+      <>
+        <Head>
+          <title>春联大师</title>
+        </Head>
+        <RootLayoutThatConfiguresAmplifyOnTheClient>
+          <Component {...pageProps} />
+        </RootLayoutThatConfiguresAmplifyOnTheClient>
+      </>
   );
 }
 

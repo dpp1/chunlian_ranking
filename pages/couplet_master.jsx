@@ -40,42 +40,17 @@ export default function CoupletMasterComponent() {
     'CHUNLIAN_REVIEW',
     'PRINT'];
 
-  const hints = [
-    '',
-    '',
-    '点击桌面话筒按钮开始说话，说完之后再点击一次结束',
-    '对联正在生成中，请稍等',
-    '选择并打印你喜欢的对联，例如“打印第二幅”。您还可以更换新年愿望，请说“再来一次”',
-    '',
-  ];
-
-  const voiceInputDisabled = [
-    false,
-    false,
-    false,
-    true,
-    false,
-    true,
-  ];
-
   const [theme, setTheme] = useState('');
   const [attempts, setAttempts] = useState(1);
   const [selection, setSelection] = useState();
   const [chunlians, setChunlians] = useState([]);
+  const is_from_booth = new URLSearchParams(window.location.search)
+      .get('is_from_booth') === 'true';
 
   const {Header, Footer, Content, Sider} = Layout;
 
-  const extractPrompt = (body) => {
-    let conversationBuilder = '';
-    for (const message of body) {
-      conversationBuilder += `${message.sender}: ${message.message}\n\n`;
-    }
-    return conversationBuilder.trim();
-  };
-
   useEffect(() => {
     setBackground('background' + visibleStep);
-    voiceInput.current.focus();
   }, [visibleStep]);
 
   useEffect(() => {
@@ -103,8 +78,6 @@ export default function CoupletMasterComponent() {
     try {
       // const message = extractPrompt([...conversation, newMessage]);
       console.log('sending prompt -> ' + userPrompt);
-      const is_from_booth = new URLSearchParams(window.location.search)
-          .get('is_from_booth') === 'true';
       const restOperation = post({
         apiName: 'chunliansApi',
         path: `/chunlian-master`,
@@ -180,11 +153,11 @@ export default function CoupletMasterComponent() {
       <Layout className={backgroundClassName}>
         <Content>
           {visibleStep === 1 && <CoupletMasterStep1/>}
-          {visibleStep === 2 && <CoupletMasterStep2 theme={theme}/>}
+          {visibleStep === 2 && <CoupletMasterStep2 theme={theme} voice={voice} setVoice={setVoice} setTheme={setTheme}/>}
           {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
           {visibleStep === 4 &&
               <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}
-                                  theme={theme}/>}
+                                  theme={theme} voice={voice} setVoice={setVoice}/>}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection} theme={theme}/>}
@@ -192,35 +165,28 @@ export default function CoupletMasterComponent() {
         <Footer>
           <Layout>
             <Content>
-              <Row type="flex" justify="center">
-                <Col align="middle" className="hint">
-                  {hints[visibleStep]}
-                </Col>
-              </Row>
-              <br/>
               <Row type="flex" gutter={8}>
                 <Col align="right" span={1} offset={5}>
-                  <div className="audioIcon"/>
+                  {/*<div className="audioIcon"/>*/}
                 </Col>
                 <Col align="middle" span={12}>
-                  <Input size="large" className="voiceInput" value={voice}
-                         ref={voiceInput}
-                         disabled={voiceInputDisabled[visibleStep]}
-                         validateStatus={voiceInputDisabled[visibleStep]
-                             ? 'default'
-                             : 'warning'}
-                         onChange={(value, e) => {
-                           setVoice(value);
-                           if (visibleStep === 2) {
-                             setTheme(value);
-                           }
-                         }}
-                  ></Input>
+                  <div className="header">Marketing Tech荣誉出品</div>
+                  {/*<Input size="large" className="voiceInput" value={voice}*/}
+                  {/*       ref={voiceInput}*/}
+                  {/*       disabled={voiceInputDisabled[visibleStep]}*/}
+                  {/*       validateStatus={voiceInputDisabled[visibleStep]*/}
+                  {/*           ? 'default'*/}
+                  {/*           : 'warning'}*/}
+                  {/*       onChange={(value, e) => {*/}
+                  {/*         setVoice(value);*/}
+                  {/*         if (visibleStep === 2) {*/}
+                  {/*           setTheme(value);*/}
+                  {/*         }*/}
+                  {/*       }}*/}
+                  {/*></Input>*/}
                 </Col>
-                <Col  span={6} >
-                    <div className="header" align="right">Marketing Tech荣誉出品</div>
-                </Col>
-              </Row>
+                <Col  span={6} />
+                </Row>
               <br/>
             </Content>
           </Layout>
