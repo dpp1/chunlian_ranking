@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {get, post} from '@aws-amplify/api';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ import {
   Form,
   Typography, RadioGroup, Radio, Row, Col,
 } from '@douyinfe/semi-ui';
+import GlobalContext from '@/src/globalContext';
 // import { isMobile } from 'react-device-detect';
 
 const {Meta} = Card;
@@ -20,6 +21,7 @@ const {Text} = Typography;
 
 const HomePage = () => {
   const {Header, Footer, Content} = Layout;
+
   const getValueLength = (str) => {
     if (typeof str === 'string') {
       const splitter = new GraphemeSplitter();
@@ -148,6 +150,7 @@ const ChunlianList = () => {
 };
 
 const ChunlianItem = ({chunlian}) => {
+  const { userUUID, isFromBooth } = useContext(GlobalContext);
   const [likesCount, setLikesCount] = useState(chunlian.likesCount);
   const [userReaction, setUserReaction] = useState(0);
 
@@ -172,7 +175,6 @@ const ChunlianItem = ({chunlian}) => {
     userReactions[chunlian.chunlianId] = newReaction;
     localStorage.setItem('userReactions', JSON.stringify(userReactions));
 
-    const userUUID = Cookies.get('userUUID');
     const reactionData = {
       chunlianId: chunlian.chunlianId,
       userId: userUUID,

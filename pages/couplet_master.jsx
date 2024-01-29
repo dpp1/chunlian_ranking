@@ -10,7 +10,7 @@ import CoupletMasterStep4
   from '../src/components/chatBotCouplet/CoupletMasterStep4';
 import CoupletMasterStep5
   from '../src/components/chatBotCouplet/CoupletMasterStep5';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import {
   Layout,
   Row,
@@ -18,6 +18,7 @@ import {
   Input,
 } from '@douyinfe/semi-ui';
 import {post} from '@aws-amplify/api';
+import GlobalContext from '@/src/globalContext';
 
 export default function CoupletMasterComponent() {
   /**
@@ -44,23 +45,23 @@ export default function CoupletMasterComponent() {
   const [attempts, setAttempts] = useState(1);
   const [selection, setSelection] = useState();
   const [chunlians, setChunlians] = useState([]);
-  const is_from_booth = new URLSearchParams(window.location.search)
-      .get('is_from_booth') === 'true';
 
   const {Header, Footer, Content, Sider} = Layout;
+  const { userUUID, isFromBooth } = useContext(GlobalContext);
+
 
   useEffect(() => {
     setBackground('background' + visibleStep);
   }, [visibleStep]);
 
   useEffect(() => {
-    if (voice) {
+    if (voice && isFromBooth) {
       const timeoutId = setTimeout(() => {
         sendMessage(voice);
       }, '3000');
       return () => clearTimeout(timeoutId);
     }
-  }, [voice]);
+  }, [voice, isFromBooth]);
 
   const sendMessage = async (voice) => {
     console.log('send message -> ' + voice);
@@ -86,7 +87,7 @@ export default function CoupletMasterComponent() {
           body: {
             current_step: steps[visibleStep],
             prompt: userPrompt,
-            is_from_booth: is_from_booth,
+            is_from_booth: isFromBooth,
           },
         },
       });
@@ -122,7 +123,7 @@ export default function CoupletMasterComponent() {
         // If at Chunlian Review Page
         if (llm_suggested_next_step === 'SET_THEME') {
           // User wants another try, check the number of attempts
-          if (attempts >= 3 && is_from_booth) {
+          if (attempts >= 3 && isFromBooth) {
             //TODO: Handle the attempt limit reached case.
             // Current Workaround, select the first and move on
             setSelection(0);
@@ -153,11 +154,11 @@ export default function CoupletMasterComponent() {
       <Layout className={backgroundClassName}>
         <Content>
           {visibleStep === 1 && <CoupletMasterStep1/>}
-          {visibleStep === 2 && <CoupletMasterStep2 theme={theme} voice={voice} setVoice={setVoice} setTheme={setTheme}/>}
+          {visibleStep === 2 && <CoupletMasterStep2 theme={theme} voice={voice} setVoice={setVoice} setTheme={setTheme} sendMessage={sendMessage}/>}
           {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
           {visibleStep === 4 &&
               <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}
-                                  theme={theme} voice={voice} setVoice={setVoice}/>}
+                                  theme={theme} voice={voice} setVoice={setVoice} sendMessage={sendMessage}/>}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection} theme={theme}/>}

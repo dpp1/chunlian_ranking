@@ -28,7 +28,7 @@ export default function CoupletMasterStep4(props) {
     // setChunlian2({ hengpi: "勇往直前", shanglian: "长风破浪会有时", xialian: "直挂云帆济沧海" });
     // setChunlian3({ hengpi: "中国福彩", shanglian: "早中晚中早晚中", xialian: "多买少买多少买" });
 
-  }, [props]);
+  }, [props.chunlians]);
 
   return <>
     <Row type="flex" justify="center">
@@ -74,6 +74,12 @@ export default function CoupletMasterStep4(props) {
             value={props.voice}
             onValueChange={props.setVoice}
             visible={true}
+            sendMessage={props.sendMessage}
+            buttonConfig={{
+              primaryButtonText: "提交",
+              secondaryButtonText: "再来一次",
+              secondaryButtonAction: () => window.location.reload()
+            }}
         />
       </Col>
     </Row>

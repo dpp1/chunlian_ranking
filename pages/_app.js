@@ -8,26 +8,42 @@ import reportWebVitals from '../src/reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../src/amplifyconfiguration.json';
 import Head from 'next/head';
+import GlobalContext from '@/src/globalContext';
 
 Amplify.configure(amplifyconfig);
 
-const ensureUserUUID = () => {
-  if (!Cookies.get('userUUID')) {
-    Cookies.set('userUUID', uuidv4());
-  }
-};
-
 function MyApp({ Component, pageProps }) {
-  ensureUserUUID();
+  const [globalValues, setGlobalValues] = useState({
+    userUUID: null,
+    isFromBooth: false,
+  });
+
+  useEffect(() => {
+    // Generate or retrieve userUUID
+    let userUUID = Cookies.get('userUUID');
+    if (!userUUID) {
+      userUUID = uuidv4();
+      Cookies.set('userUUID', userUUID);
+    }
+    console.log('userUUID', userUUID);
+
+    // Check for is_from_booth in the URL query parameters
+    const isFromBooth = typeof window !== 'undefined' ?
+        new URLSearchParams(window.location.search).get('is_from_booth') === 'true' : false;
+    console.log("isFromBooth: ", isFromBooth);
+    // Update the global values
+    setGlobalValues({ userUUID, isFromBooth });
+  }, []);
+
   return (
-      <>
+      <GlobalContext.Provider value={globalValues}>
         <Head>
           <title>春联大师</title>
         </Head>
         <RootLayoutThatConfiguresAmplifyOnTheClient>
           <Component {...pageProps} />
         </RootLayoutThatConfiguresAmplifyOnTheClient>
-      </>
+      </GlobalContext.Provider>
   );
 }
 
