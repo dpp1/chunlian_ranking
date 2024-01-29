@@ -20,8 +20,8 @@ export default function CoupletMasterStep2(props) {
         <div className="denglong2"/>
         <div className="denglong3"/>
         <div className="denglong4"/>
-        <Header style={{ height: 150 }}></Header>
-        <Row type="flex" justify="center" align="middle">
+        <Header className="step2Header"></Header>
+        <Row className="firstElementAfterHeader" type="flex" justify="center" align="middle">
             <Col span={10} align="center">
                 <h1 className="title" align="center">春联大师</h1>
                 <br/>

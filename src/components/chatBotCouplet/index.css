@@ -3,6 +3,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    z-index: 1;
 }
 
 .background1 {
@@ -33,7 +34,8 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    height: 99vh;
+    min-height: 120vh;
+    /*height: 99vh;*/
 }
 
 .background5 {
@@ -154,6 +156,14 @@
     font-size: 40px;
     text-align: center;
     font-family: OrdinaryFont;
+}
+
+.step2Header {
+    height: 150px
+}
+
+.step2HeaderWeb {
+    height: 30px
 }
 
 .voiceInput {
@@ -344,5 +354,59 @@
     #coupletPhoto {
         width: 546px;
         height: 766px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chunlianReviewCard {
+        z-index: 2; /* Ensure this is higher than the z-index of the background */
+        backgroundColor: rgba(255, 215, 0, 0.5); /* Adjust transparency as needed */
+        margin-top: -10px;
+    }
+
+    .step2Header {
+        height: 100px; /* Decrease the height to use less space */
+    }
+
+    /* Adjust the top margin of the first element after the header */
+    .firstElementAfterHeader {
+        margin-top: 0px; /* Add some space at the top, adjust as needed */
+    }
+
+    .denglong1, .denglong2, .denglong3, .denglong4 {
+        /*width: 120px; !* Make the lanterns smaller *!*/
+        /*height: 20%; !* Adjust the height *!*/
+        /* Optionally, you can hide the lanterns */
+         display: none;
+    }
+
+    /* Adjust font sizes for mobile */
+    .hint, .desc {
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    /* Adjust background properties */
+    .background2, .background3, .background4, .background5 {
+        background-size: auto 100%; /* Adjust background size */
+        background-position: top center; /* Adjust background position */
+    }
+
+    /* Adjust background images for smaller screens */
+    .background, .background1, .background2, .background3, .background4, .background5 {
+        background-size: 100% 100%; /* Stretch background to cover the area */
+        height: auto; /* Adjust height to be auto to ensure full page coverage */
+        min-height: 100vh; /* Ensure at least the full height of the viewport */
+    }
+
+    /*.ant-layout-header {*/
+    /*    height: 800px; !* Reduce the height of the header *!*/
+    /*}*/
+
+    .voiceInputContainer {
+        margin-top: -100px; /* Pull the content up by 50px */
     }
 }

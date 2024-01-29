@@ -19,6 +19,8 @@ import {
 } from '@douyinfe/semi-ui';
 import {post} from '@aws-amplify/api';
 import GlobalContext from '@/src/globalContext';
+import { isMobile } from 'react-device-detect';
+
 
 export default function CoupletMasterComponent() {
   /**
@@ -48,7 +50,7 @@ export default function CoupletMasterComponent() {
 
   const {Header, Footer, Content, Sider} = Layout;
   const { userUUID, isFromBooth } = useContext(GlobalContext);
-
+  console.log("isMobile: ", isMobile);
 
   useEffect(() => {
     setBackground('background' + visibleStep);
@@ -158,7 +160,9 @@ export default function CoupletMasterComponent() {
           {visibleStep === 3 && <CoupletMasterStep3 theme={theme}/>}
           {visibleStep === 4 &&
               <CoupletMasterStep4 attempts={attempts} chunlians={chunlians}
-                                  theme={theme} voice={voice} setVoice={setVoice} sendMessage={sendMessage}/>}
+                                  theme={theme} voice={voice} setVoice={setVoice} sendMessage={sendMessage}
+                                  setSelection={setSelection} setStep={setStep}
+              />}
           {visibleStep === 5 &&
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection} theme={theme}/>}
@@ -168,23 +172,9 @@ export default function CoupletMasterComponent() {
             <Content>
               <Row type="flex" gutter={8}>
                 <Col align="right" span={1} offset={5}>
-                  {/*<div className="audioIcon"/>*/}
                 </Col>
                 <Col align="middle" span={12}>
-                  <div className="header">Marketing Tech荣誉出品</div>
-                  {/*<Input size="large" className="voiceInput" value={voice}*/}
-                  {/*       ref={voiceInput}*/}
-                  {/*       disabled={voiceInputDisabled[visibleStep]}*/}
-                  {/*       validateStatus={voiceInputDisabled[visibleStep]*/}
-                  {/*           ? 'default'*/}
-                  {/*           : 'warning'}*/}
-                  {/*       onChange={(value, e) => {*/}
-                  {/*         setVoice(value);*/}
-                  {/*         if (visibleStep === 2) {*/}
-                  {/*           setTheme(value);*/}
-                  {/*         }*/}
-                  {/*       }}*/}
-                  {/*></Input>*/}
+                  <div className="hint">Marketing Tech荣誉出品</div>
                 </Col>
                 <Col  span={6} />
                 </Row>
