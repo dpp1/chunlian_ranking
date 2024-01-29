@@ -1,22 +1,54 @@
 /* VoiceInput.module.css */
 .voiceInputContainer {
     display: flex;
+    margin-left: 20%;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    flex-wrap: nowrap;
 }
 
-.submitButton {
+.submitButton1 {
     margin-left: 20px;
+    min-width: 100px;
 }
 
-@media (max-width: 600px) {
+.submitButton2 {
+    margin-left: 10px;
+    min-width: 100px;
+}
+
+@media (max-width: 1518px) {
     .voiceInputContainer {
-        flex-direction: column;
+        flex-wrap: wrap;
+        margin-left: 20%;
+    }
+    .voiceInputContainer .semi-space {
+        flex-wrap: wrap;
+    }
+    .voiceInput {
+        width: 100%;
+        padding-bottom: 20px;
     }
 
-    .submitButton {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
+    /*.submitButtons{*/
+    /*    padding-top: 20px;*/
+    /*}*/
+    .submitButton1 {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 20px;
     }
+
+    .submitButton2 {
+        margin-top: 20px;
+    }
+
+}
+@media (max-width: 554px) {
+    .submitButton2 {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
 }

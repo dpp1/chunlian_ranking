@@ -14,7 +14,7 @@ export default function CoupletMasterStep4(props) {
   const [chunlian3, setChunlian3] = useState(
       {hengpi: '', shanglian: '', xialian: ''});
   const voiceInputRef = useRef(null);
-  
+
   useEffect(() => {
     // setAttempts(props.attempts);
     setChunlians(props.chunlians);

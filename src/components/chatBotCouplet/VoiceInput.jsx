@@ -48,6 +48,7 @@ const VoiceInput = forwardRef(({
             value={value}
             ref={ref}
             validateStatus="warning"
+            style={{ width: '60%'}}
             onChange={(value) => {
               onValueChange(value);
               if (setTheme) {
@@ -55,16 +56,16 @@ const VoiceInput = forwardRef(({
               }
             }}
         />
-        <Space>
+        <Space wrap className={"submitButtons"}>
           <Button type="warning" size="large" theme="solid"
-                  className={styles.submitButton}
+                  className={styles.submitButton1}
                   htmlType="submit">
             {primaryButtonText}
           </Button>
           {secondaryButtonText && (
               <Button type="warning" size="large" theme="solid"
                       onClick={handleSecondaryAction}
-                      className={styles.submitButton}>
+                      className={styles.submitButton2}>
                 {secondaryButtonText}
               </Button>
           )}
