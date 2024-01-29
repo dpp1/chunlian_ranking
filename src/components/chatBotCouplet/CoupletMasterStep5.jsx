@@ -185,7 +185,9 @@ export default function CoupletMasterStep5(props) {
                         <div align="center">
                             {!isSubmitted ? (
                                 <>
-                                    <div class='hint'>填入你的笔名提交大作(不要用真名哦)</div>
+                                    <div class='hint'>
+                                        <p>填入你的笔名提交大作(不要用真名哦)</p>
+                                    </div>
                                     <Input
                                         value={name}
                                         style={{marginTop: '20px'}}
@@ -199,7 +201,7 @@ export default function CoupletMasterStep5(props) {
                                 // Show submission message if submitted
                                 <div class='hint'>
                                     <p>大作已提交到排行榜!</p>
-                                    <p>微信右上角分享得phone tool icon</p>
+                                    <p>微信右上角分享 传播喜悦!</p>
                                 </div>
                             )}
                         </div>

@@ -26,7 +26,6 @@ export default function CoupletMasterStep4(props) {
     const [chunlian3, setChunlian3] = useState(
         {hengpi: '', shanglian: '', xialian: ''});
     const voiceInputRef = useRef(null);
-    const { Text } = Typography;
 
     const isOnMobile = useMediaQuery({maxWidth: 767}) || isMobile;
     console.log("isOnMobile", isOnMobile);
@@ -56,12 +55,14 @@ export default function CoupletMasterStep4(props) {
         }
     }, [props.chunlians]);
 
+    const { Title } = Typography;
+
     if (isOnMobile) {
         return <>
             <Header className="step2Header"/>
             <Row type="flex" justify="center">
                 <Col span={14} align="middle" className="hint" style={{marginBottom: '20px'}}>
-                    <Text> 请选一幅保存 或点击"再来一次"</Text>
+                    <Title heading={3} style={{color:'white'}} > 请选一幅保存 或点击"再来一次"</Title>
                 </Col>
                 <Col span={18}>
                     <Space vertical>

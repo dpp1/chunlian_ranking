@@ -362,15 +362,15 @@
     }
 
     .background3 .hint{
-        color: black;
+        color: white;
     }
 
     .background4 .hint{
-        color: black;
+        color: white;
     }
 
     .background5 .hint{
-        color: black;
+        color: white;
     }
     .chunlianReviewCard {
         z-index: 2; /* Ensure this is higher than the z-index of the background */
@@ -405,12 +405,12 @@
 
     .desc {
         font-size: 16px; /* Adjust the font size as needed */
-        color: #fd2323;
+        color: white;
     }
 
     .title {
         font-size: 32px;
-        color: #fd2323;
+        color:white;
     }
 
     /* Adjust background properties */
@@ -424,7 +424,7 @@
         background-size: 100% 100%; /* Stretch background to cover the area */
         height: auto; /* Adjust height to be auto to ensure full page coverage */
         min-height: 100vh; /* Ensure at least the full height of the viewport */
-        background: linear-gradient(to bottom right, #fcb9d3, #b39cf6); /* Replace with your colors */
+        background: #dd3b43; /* Replace with your colors */
     }
 
     /*.ant-layout-header {*/
