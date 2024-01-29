@@ -124,8 +124,8 @@ export default function CoupletMasterStep5(props) {
             var timestamp = (new Date()).valueOf();
             ImageUploader.uploadImage(timestamp, dataUrl.substr(dataUrl.indexOf(',') + 1)).then((imagePath) => {
                 console.log(imagePath);
+                const shareURL = `https://https://www.couplet.octopus.marketing.aws.a2z.org.cn/share?combine=false&imageUrl=${encodeURIComponent(imagePath)}`;
                 // 分享图片地址
-                const shareURL = 'https://d1d2ukegmn3q96.cloudfront.net/share/index.html?combine=false&imageUrl=' + imagePath;
                 setShareURL(shareURL);
                 setLoading(false);
             })
@@ -188,7 +188,7 @@ export default function CoupletMasterStep5(props) {
                         {/* <Switch checked={autoPrint} onChange={setAutoPrint} checkedText="开" uncheckedText="关" size="large" /> */}
                     </Space>
                 </div>
-                <br />     
+                <br />
                 <Space>
                     {!isSubmitted ? (
                         <>

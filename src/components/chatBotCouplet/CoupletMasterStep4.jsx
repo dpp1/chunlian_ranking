@@ -90,7 +90,7 @@ export default function CoupletMasterStep4(props) {
                             className="chunlianReviewCard"
                             headerLine={false}
                             style={{
-                                backgroundColor: 'rgba(255,238,171,0.5)'
+                                backgroundColor: 'rgba(255,243,195,0.66)'
                             }}>
 
                             <Descriptions
@@ -116,7 +116,7 @@ export default function CoupletMasterStep4(props) {
                             className="chunlianReviewCard"
                             headerLine={false}
                             style={{
-                                backgroundColor: 'rgba(255,238,171,0.5)'
+                                backgroundColor: 'rgba(255,243,195,0.66)'
                             }}>
                             <Descriptions
                                 align="center"
