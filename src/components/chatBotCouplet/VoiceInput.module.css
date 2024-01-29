@@ -45,6 +45,18 @@
     }
 
 }
+@media (max-width: 944px) {
+    .submitButton1 {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+    .submitButton2 {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+}
 @media (max-width: 554px) {
     .submitButton2 {
         margin-top: 20px;
