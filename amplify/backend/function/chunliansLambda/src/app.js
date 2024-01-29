@@ -82,34 +82,64 @@ const convertUrlType = (param, type) => {
  * HTTP Get method to list objects *
  ************************************/
 app.get(path, async function(req, res) {
-  const page = parseInt(req.query.page) || 1;
-  const from = (page - 1) * 50;
+    const pageSize = 20;
+    const page = parseInt(req.query.page) || 1;
+    const searchText = req.query.searchText;
+    const orderBy = req.query.orderBy || 'hot';  // Renamed sortBy to orderBy
+    const from = (page - 1) * pageSize;
 
-  const searchParams = {
-    size: 50,
-    from: from,
-    sort:  [
-      { "likesCount": {"order" : "desc" }},
-      { "creationDate": {"order" : "desc" }}
-    ],
-    query: {
-      match_all: {}
+    let sortParams;
+    if (searchText) {
+        // When searchText is provided, sort by relevance first
+        sortParams = [
+            { "_score": { "order": "desc" } }, // Sort by relevance
+            orderBy === 'hot' ?
+                { "likesCount": { "order": "desc" } } :
+                { "creationDate": { "order": "desc" } }
+        ];
+    } else {
+        // Default sorting (when searchText is not provided)
+        sortParams = orderBy === 'hot' ?
+            [{ "likesCount": { "order": "desc" } }, { "creationDate": { "order": "desc" } }] :
+            [{ "creationDate": { "order": "desc" } }, { "likesCount": { "order": "desc" } }];
     }
-  };
 
-  try {
-    const response = await openSearchClient.search({
-      index: 'table-index',
-      body: searchParams,
-    });
-    const data = response.body;
-    const items = data.hits.hits.map(hit => hit._source);
-    console.log(items);
-    res.json(items);
-  } catch (err) {
-    res.statusCode = 500;
-    res.json({error: 'Could not load items from OpenSearch: ' + err.message});
-  }
+    const queryParam = searchText ?
+        {
+            multi_match: {
+                query: searchText,
+                fields: ["author", "firstLine", "secondLine", "horizontalScroll", "topic"]
+            }
+        } :
+        {
+            match_all: {}
+        };
+
+    const searchParams = {
+        size: pageSize,
+        from: from,
+        sort: sortParams,
+        query: queryParam
+    };
+
+    try {
+        const response = await openSearchClient.search({
+            index: 'table-index',
+            body: searchParams,
+        });
+        const data = response.body;
+        const totalHits = data.hits.total.value; // Get the total number of matched items
+        const items = data.hits.hits.map(hit => hit._source);
+
+        // Include totalHits in the response
+        res.json({
+            items: items,
+            total: totalHits
+        });
+    } catch (err) {
+        res.statusCode = 500;
+        res.json({error: 'Could not load items from OpenSearch: ' + err.message});
+    }
 });
 
 /************************************
@@ -270,7 +300,8 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res
   }
 
   try {
-    let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
+    // let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
+    let data = {};
     res.json({url: req.url, data: data});
   } catch (err) {
     res.statusCode = 500;

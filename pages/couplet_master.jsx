@@ -15,7 +15,7 @@ import {
   Layout,
   Row,
   Col,
-  Input,
+  Input, Divider,
 } from '@douyinfe/semi-ui';
 import {post} from '@aws-amplify/api';
 import GlobalContext from '@/src/globalContext';
@@ -117,6 +117,9 @@ export default function CoupletMasterComponent() {
           llm_suggested_next_step === 'CHUNLIAN_REVIEW') {
         // Move from Set Theme page or Chunlian Loading Page to Chunlian Review Page
         setChunlians(response.chunlians);
+        if (response.theme !== undefined && response.theme !== '') {
+          setTheme(response.theme);
+        }
         console.log('Setting step to 4');
         setStep(4);
       } else if (visibleStep === 4
@@ -167,6 +170,7 @@ export default function CoupletMasterComponent() {
               <CoupletMasterStep5 attempts={attempts} chunlians={chunlians}
                                   selection={selection} theme={theme}/>}
         </Content>
+        <Divider margin="12px"/>
         <Footer>
           <Layout>
             <Content>

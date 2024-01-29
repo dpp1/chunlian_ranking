@@ -15,7 +15,7 @@
       "function": {
         "chunliansLambda": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
-          "s3Key": "amplify-builds/chunliansLambda-6f3967465170476c4e43-build.zip"
+          "s3Key": "amplify-builds/chunliansLambda-3268515242653257726f-build.zip"
         },
         "usersLambda": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
@@ -23,7 +23,7 @@
         },
         "reactionsLambda": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",
-          "s3Key": "amplify-builds/reactionsLambda-5847594d592b64545352-build.zip"
+          "s3Key": "amplify-builds/reactionsLambda-5a6b7544394f67766a68-build.zip"
         },
         "UserReactionsTrigger05ec392a": {
           "deploymentBucketName": "amplify-chunlianranking-dev-10157-deployment",

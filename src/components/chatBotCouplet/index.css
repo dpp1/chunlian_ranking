@@ -379,7 +379,7 @@
     }
 
     .step2Header {
-        height: 50px; /* Decrease the height to use less space */
+        height: 20px; /* Decrease the height to use less space */
     }
 
     .step4Header {
@@ -421,18 +421,14 @@
         color:white;
     }
 
-    /* Adjust background properties */
-    .background2, .background3, .background4, .background5 {
-        background-size: auto 100%; /* Adjust background size */
-        background-position: top center; /* Adjust background position */
-    }
-
     /* Adjust background images for smaller screens */
     .background, .background1, .background2, .background3, .background4, .background5 {
+        /* Adjust background position */
         background-size: 100% 100%; /* Stretch background to cover the area */
         height: auto; /* Adjust height to be auto to ensure full page coverage */
         min-height: 100vh; /* Ensure at least the full height of the viewport */
-        background: #dd3b43; /* Replace with your colors */
+        /* Replace with your colors */
+        background: #dd3b43 top center;
     }
 
     /*.ant-layout-header {*/

@@ -62,7 +62,7 @@ export default function CoupletMasterStep4(props) {
             <Header className="step2Header"/>
             <Row type="flex" justify="center">
                 <Col span={14} align="middle" className="hint" style={{marginBottom: '20px'}}>
-                    <Title heading={3} style={{color:'white'}} > 请选一幅保存 或点击"再来一次"</Title>
+                    <div className='hint' style={{color:'white'}} > 请选一幅保存 或点击"再来一次"</div>
                 </Col>
                 <Col span={18}>
                     <Space vertical>

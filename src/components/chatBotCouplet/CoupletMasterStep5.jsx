@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import {CoupletWidget} from "./CoupletWidget";
 import {
     Row,
@@ -22,18 +22,20 @@ import QRCode from "react-qr-code";
 import {useMediaQuery} from "react-responsive";
 import {isMobile} from 'react-device-detect';
 import Head from "next/head";
+import GlobalContext from "@/src/globalContext";
 
 
-const MY_NAMESPACE = '86824965-20d1-49d2-a222-ac1c3bd0738c'
+export const MY_NAMESPACE = '86824965-20d1-49d2-a222-ac1c3bd0738c'
 
 export default function CoupletMasterStep5(props) {
 
     const router = useRouter();
     // Function to handle redirection to the main path
     const redirectToHome = () => {
-        router.push('/');
+        router.push('/?orderBy=new');
     };
 
+    const {userUUID, isFromBooth} = useContext(GlobalContext);
     const {Header} = Layout;
     const {Title} = Typography;
     const [shareURL, setShareURL] = useState('');
@@ -99,7 +101,8 @@ export default function CoupletMasterStep5(props) {
                 author: name,
                 chunlianId: uuidv5(JSON.stringify(chunlian), MY_NAMESPACE).toString(),
                 likesCount: 0,
-                creationDate: Date.now()
+                creationDate: Date.now(),
+                shareURL: shareURL
             };
             console.log('New Chunlian Request: ', requestBody);
             post({
@@ -186,6 +189,7 @@ export default function CoupletMasterStep5(props) {
                             {!isSubmitted ? (
                                 <>
                                     <div class='hint'>
+                                        <p>提交并转发 得PhoneTool Icon!</p>
                                         <p>填入你的笔名提交大作(不要用真名哦)</p>
                                     </div>
                                     <Input
@@ -195,13 +199,12 @@ export default function CoupletMasterStep5(props) {
                                         placeholder="春联大师"
                                     />
                                     <Button onClick={handleNameSubmit} theme='solid' type='warning'
-                                            size="large" style={{marginTop:'20px'}}>提交大作</Button>
+                                            size="large" style={{marginTop: '20px'}}>提交大作</Button>
                                 </>
                             ) : (
                                 // Show submission message if submitted
                                 <div class='hint'>
                                     <p>大作已提交到排行榜!</p>
-                                    <p>微信右上角分享 传播喜悦!</p>
                                 </div>
                             )}
                         </div>
@@ -211,7 +214,7 @@ export default function CoupletMasterStep5(props) {
                     <Col span={24}>
                         <div align="center">
                             <Button onClick={redirectToHome} theme='solid' type='warning'
-                                    size="large" style={{marginTop:'20px', marginBottom:'10px'}}>春联排行榜</Button>
+                                    size="large" style={{marginTop: '20px', marginBottom: '10px'}}>春联排行榜</Button>
                         </div>
                     </Col>
                 </Row>
@@ -249,14 +252,14 @@ export default function CoupletMasterStep5(props) {
                         {!loading &&
                             <>
                                 <div className="hint">
-                                    手机扫一扫，分享这份喜悦
+                                    手机扫一扫，分享你的大作
                                 </div>
                                 <br/>
                                 <div style={{height: "auto", maxWidth: 180, width: "100%"}} align="left">
                                     <QRCode
                                         size={256}
                                         style={{height: "auto", maxWidth: "100%", width: "100%"}}
-                                        value={shareURL}
+                                        value={shareURL + `&showForm=true&firstLine=${encodeURIComponent(chunlian.shanglian)}&secondLine=${encodeURIComponent(chunlian.xialian)}&horizontalScroll=${encodeURIComponent(chunlian.hengpi)}&topic=${encodeURIComponent(props.theme)}`}
                                         viewBox={`0 0 256 256`}
                                     />
                                 </div>
@@ -274,23 +277,27 @@ export default function CoupletMasterStep5(props) {
                         </Space>
                     </div>
                     <br/>
-                    <Space>
-                        {!isSubmitted ? (
-                            <>
-                                <Input
-                                    value={name}
-                                    onChange={(e) => setName(e)}
-                                    placeholder="填入你的笔名,不要用真名哦~"
-                                />
-                                <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
-                            </>
-                        ) : (
-                            // Show submission message if submitted
-                            <p>大作已提交!</p>
-                        )}
-                        <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
-                    </Space>
-                    <p>点击"春联排行榜"查看更多有趣春联</p>
+                    {isFromBooth && <div>
+                        <Space>
+                            {!isSubmitted ? (
+                                <>
+                                    <p>填入笔名(不要用真名哦)</p>
+                                    <Input
+                                        value={name}
+                                        onChange={(e) => setName(e)}
+                                        placeholder="春联大师"
+                                    />
+                                    <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
+                                </>
+                            ) : (
+                                // Show submission message if submitted
+                                <p>大作已提交!</p>
+                            )}
+                            <Button onClick={redirectToHome} theme='solid' type='secondary'
+                                    size="large">春联排行榜</Button>
+                        </Space>
+                        <p>点击"春联排行榜"查看更多有趣春联</p>
+                    </div>}
                 </Col>
             </Row>
         </>;

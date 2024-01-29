@@ -232,7 +232,8 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res
   }
 
   try {
-    let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
+    // let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
+    let data = {};
     res.json({url: req.url, data: data});
   } catch (err) {
     res.statusCode = 500;
