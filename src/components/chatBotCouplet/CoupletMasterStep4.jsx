@@ -160,7 +160,6 @@ export default function CoupletMasterStep4(props) {
                                    coupletRight={chunlian1.xialian}
                                    font="OrdinaryFont"
                                    background="coupletReview"/>
-                    <div align="center" className="hint">传统风格</div>
                 </Col>
                 <Col span={6}>
                     <CoupletWidget coupletTop={chunlian2.hengpi}
@@ -168,7 +167,6 @@ export default function CoupletMasterStep4(props) {
                                    coupletRight={chunlian2.xialian}
                                    font="OrdinaryFont"
                                    background="coupletReview"/>
-                    <div align="center" className="hint">古典风格</div>
                 </Col>
                 <Col span={6}>
                     <CoupletWidget coupletTop={chunlian3.hengpi}
@@ -176,10 +174,19 @@ export default function CoupletMasterStep4(props) {
                                    coupletRight={chunlian3.xialian}
                                    font="OrdinaryFont"
                                    background="coupletReview"/>
+                </Col>
+            </Row>
+            <Row type="flex" justify="center">
+                <Col span={6}>
+                    <div align="center" className="hint">传统风格</div>
+                </Col>
+                <Col span={6}>
+                    <div align="center" className="hint">古典风格</div>
+                </Col>
+                <Col span={6}>
                     <div align="center" className="hint">搞笑风格</div>
                 </Col>
             </Row>
-            <br/>
             <br/>
             <br/>
             <br/>
@@ -190,7 +197,6 @@ export default function CoupletMasterStep4(props) {
                     选一幅对联打印，如“打印第二幅”。也可以说“再来一次”
                 </Col>
             </Row>
-            <br/>
             <br/>
             <Row type="flex" justify="center" align="middle">
                 <Col span={10} align="center">

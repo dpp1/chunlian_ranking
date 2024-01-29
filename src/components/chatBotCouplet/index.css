@@ -34,8 +34,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    min-height: 120vh;
-    /*height: 99vh;*/
+    height: 99vh;
 }
 
 .background5 {
@@ -163,7 +162,7 @@
 }
 
 .step2HeaderWeb {
-    height: 30px
+    height: 100px
 }
 
 .voiceInput {

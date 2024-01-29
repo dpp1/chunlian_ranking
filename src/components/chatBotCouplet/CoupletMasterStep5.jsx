@@ -136,7 +136,7 @@ export default function CoupletMasterStep5(props) {
     };
 
     return <>
-        <Header style={{ height: 20 }}></Header>
+        <Header style={{ height: 100 }}></Header>
         <Row type="flex" align="middle" gutter={16}>
             <Col span={7} offset={5} id="printDiv">
                 <CoupletWidget ref={componentRef} coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont" background="coupletPrinter" />
