@@ -132,7 +132,7 @@ export default function CoupletMasterStep5(props) {
             var timestamp = (new Date()).valueOf();
             ImageUploader.uploadImage(timestamp, dataUrl.substr(dataUrl.indexOf(',') + 1)).then((imagePath) => {
                 console.log(imagePath);
-                const shareURL = `https://https://www.couplet.octopus.marketing.aws.a2z.org.cn/share?combine=false&imageUrl=${encodeURIComponent(imagePath)}`;
+                const shareURL = `https://www.couplet.octopus.marketing.aws.a2z.org.cn/share?combine=false&imageUrl=${encodeURIComponent(imagePath)}`;
                 // 分享图片地址
                 setShareURL(shareURL);
                 setLoading(false);
