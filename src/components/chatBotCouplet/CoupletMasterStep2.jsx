@@ -1,13 +1,17 @@
 "use client";
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import { Layout, Input, Button, Row, Col, TextArea, Typography } from '@douyinfe/semi-ui';
 import VoiceInput from '@/src/components/chatBotCouplet/VoiceInput';
+import {useMediaQuery} from "react-responsive";
+import {isMobile} from "react-device-detect";
+import GlobalContext from "@/src/globalContext";
 
 export default function CoupletMasterStep2(props) {
     const voiceInputRef = useRef(null);
     const { Header } = Layout;
     const { Title } = Typography;
     const formRef = useRef(null);
+    const { userUUID, isFromBooth } = useContext(GlobalContext);
 
     useEffect(() => {
         if (voiceInputRef.current) {
@@ -22,11 +26,13 @@ export default function CoupletMasterStep2(props) {
         <div className="denglong4"/>
         <Header className="step2Header"></Header>
         <Row className="firstElementAfterHeader" type="flex" justify="center" align="middle">
-            <Col span={10} align="center">
+            <Col span={18} align="center">
                 <h1 className="title" align="center">春联大师</h1>
                 <br/>
                 <p align="center" className="desc">留下您的龙年心愿</p>
-                <p align="center" className="hint">(点击话筒按钮说话 说完后再点一次按钮结束)</p>
+                {isFromBooth && (
+                    <p align="center" className="hint">(点击话筒按钮说话 说完后再点一次按钮结束)</p>
+                )}
                 <div>
                     <VoiceInput
                         ref={voiceInputRef}
