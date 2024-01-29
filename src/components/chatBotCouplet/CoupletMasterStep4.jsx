@@ -14,7 +14,7 @@ export default function CoupletMasterStep4(props) {
   const [chunlian3, setChunlian3] = useState(
       {hengpi: '', shanglian: '', xialian: ''});
   const voiceInputRef = useRef(null);
-
+  
   useEffect(() => {
     // setAttempts(props.attempts);
     setChunlians(props.chunlians);
@@ -28,6 +28,9 @@ export default function CoupletMasterStep4(props) {
     // setChunlian2({ hengpi: "勇往直前", shanglian: "长风破浪会有时", xialian: "直挂云帆济沧海" });
     // setChunlian3({ hengpi: "中国福彩", shanglian: "早中晚中早晚中", xialian: "多买少买多少买" });
 
+    if (voiceInputRef.current) {
+      voiceInputRef.current.focus();
+    }
   }, [props.chunlians]);
 
   return <>

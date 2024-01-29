@@ -22,14 +22,15 @@ const VoiceInput = forwardRef(({
     secondaryButtonAction,
   } = buttonConfig;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Access the current value from the input
-    const inputValue = ref.current ? ref.current.value : '';
-
+  const handleSubmit = (inputValue) => {
     if (inputValue.trim() !== '') {
       sendMessage(inputValue);
     }
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(value);
   };
 
   const handleSecondaryAction = () => {
@@ -37,15 +38,10 @@ const VoiceInput = forwardRef(({
     if (secondaryButtonAction) {
       secondaryButtonAction();
     }
-
-    // Submit the form only if formRef is provided
-    if (ref) {
-      handleSubmit(new Event('submit'));
-    }
   };
 
   return (
-      <form className={styles.voiceInputContainer} onSubmit={handleSubmit}>
+      <form className={styles.voiceInputContainer} onSubmit={handleFormSubmit}>
         <Input
             size="large"
             className="voiceInput"

@@ -2,7 +2,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Layout, Input, Button, Row, Col, TextArea, Typography } from '@douyinfe/semi-ui';
 import VoiceInput from '@/src/components/chatBotCouplet/VoiceInput';
-import {sendMessage} from 'next/dist/client/dev/error-overlay/websocket';
 
 export default function CoupletMasterStep2(props) {
     const voiceInputRef = useRef(null);
@@ -43,6 +42,7 @@ export default function CoupletMasterStep2(props) {
                             secondaryButtonAction: () => {
                                 props.setVoice('随便');
                                 props.setTheme('随便');
+                                props.sendMessage('随便');
                             }
                         }}
                     />
