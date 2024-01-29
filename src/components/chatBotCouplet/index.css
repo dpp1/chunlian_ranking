@@ -367,6 +367,10 @@
         height: 100px; /* Decrease the height to use less space */
     }
 
+    .step4Header {
+        height: 50px;
+    }
+
     /* Adjust the top margin of the first element after the header */
     .firstElementAfterHeader {
         margin-top: 0px; /* Add some space at the top, adjust as needed */

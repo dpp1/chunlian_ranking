@@ -15,6 +15,7 @@ import VoiceInput from '@/src/components/chatBotCouplet/VoiceInput';
 import {useMediaQuery} from 'react-responsive';
 import Header from '@douyinfe/semi-ui/lib/es/image/previewHeader';
 import styles from "@/src/components/chatBotCouplet/VoiceInput.module.css";
+import { isMobile } from 'react-device-detect';
 
 export default function CoupletMasterStep4(props) {
     const [chunlians, setChunlians] = useState([]);
@@ -26,7 +27,8 @@ export default function CoupletMasterStep4(props) {
         {hengpi: '', shanglian: '', xialian: ''});
     const voiceInputRef = useRef(null);
 
-    const isMobile = useMediaQuery({maxWidth: 767});
+    const isOnMobile = useMediaQuery({maxWidth: 767}) || isMobile;
+    console.log("isOnMobile", isOnMobile);
 
     const selectCouplet = (index) => {
         props.setSelection(index);
@@ -53,7 +55,7 @@ export default function CoupletMasterStep4(props) {
         }
     }, [props.chunlians]);
 
-    if (isMobile) {
+    if (isOnMobile) {
         return <>
             <Header className="step2Header"/>
             <Row type="flex" justify="center">

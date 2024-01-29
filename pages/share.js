@@ -23,7 +23,7 @@ const SharePage = () => {
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <title>来看我用AI写的春联</title>
+                <title>来看看我用AI写的春联吧</title>
             </Head>
             <body>
             <main>

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { CoupletWidget } from "./CoupletWidget";
+import React, {useState, useEffect, useRef} from "react";
+import {CoupletWidget} from "./CoupletWidget";
 import {
     Row,
     Col,
@@ -9,30 +9,35 @@ import {
     Button,
     Space,
     Typography,
-    Input, Toast,
+    Input, Toast, Descriptions, Card,
 } from '@douyinfe/semi-ui';
-import { useReactToPrint } from 'react-to-print';
-import { useRouter } from 'next/router';
+import {useReactToPrint} from 'react-to-print';
+import {useRouter} from 'next/router';
 import Cookies from 'js-cookie';
-import { v5 as uuidv5 } from 'uuid';
-import { post } from '@aws-amplify/api';
-import { ImageUploader } from './ImageUploader';
+import {v5 as uuidv5} from 'uuid';
+import {post} from '@aws-amplify/api';
+import {ImageUploader} from './ImageUploader';
 import * as htmlToImage from 'html-to-image';
 import QRCode from "react-qr-code";
+import {useMediaQuery} from "react-responsive";
+import {isMobile} from 'react-device-detect';
+import Head from "next/head";
+
 
 const MY_NAMESPACE = '86824965-20d1-49d2-a222-ac1c3bd0738c'
 
 export default function CoupletMasterStep5(props) {
+
     const router = useRouter();
     // Function to handle redirection to the main path
     const redirectToHome = () => {
         router.push('/');
     };
 
-    const { Header } = Layout;
-    const { Title } = Typography;
+    const {Header} = Layout;
+    const {Title} = Typography;
     const [shareURL, setShareURL] = useState('');
-    const [chunlian, setChunlian] = useState({ hengpi: "", shanglian: "", xialian: "" });
+    const [chunlian, setChunlian] = useState({hengpi: "", shanglian: "", xialian: ""});
     const [name, setName] = useState('');
     // Whether the Chunlian is submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -67,6 +72,9 @@ export default function CoupletMasterStep5(props) {
     const refreshPage = () => {
         window.location.reload();
     };
+
+    const isOnMobile = useMediaQuery({maxWidth: 767}) || isMobile;
+    console.log("isOnMobile", isOnMobile);
 
     /**
      * Submit chunlians to the Cloud
@@ -135,78 +143,154 @@ export default function CoupletMasterStep5(props) {
             });
     };
 
-    return <>
-        <Header style={{ height: 100 }}></Header>
-        <Row type="flex" align="middle" gutter={16}>
-            <Col span={7} offset={5} id="printDiv">
-                <CoupletWidget ref={componentRef} coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian} coupletRight={chunlian.xialian} font="OrdinaryFont" background="coupletPrinter" />
-            </Col>
-            <Col span={6} offset={1} id="printHint">
-                <div className="hint" >
-                    <div>
-                        对联正在打印中
-                    </div>
-                    <div className="hint">
-                        打印后，现场的书法家
-                    </div>
-                    <div className="hint">
-                        将为您挥毫泼墨！
-                    </div>
-                    <br />
+    if (isMobile) {
+        return <>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <title>来看看我用AI写的春联吧</title>
+            </Head>
+            <Space vertical>
+                <Header className="step4Header"/>
+                <div className="hint">
+                    您生成的春联是
                 </div>
-                <div>
-                    {loading && <>
-                        <div className="hint">
-                            正在生成分享二维码。。。
-                        </div>
-                        <div className="loading" />
-                    </>}
-                    {!loading &&
-                        <>
-                            <div className="hint">
-                                手机扫一扫，分享这份喜悦
-                            </div>
-                            <br />
-                            <div style={{ height: "auto", maxWidth: 180, width: "100%" }} align="left">
-                                <QRCode
-                                    size={256}
-                                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                                    value={shareURL}
-                                    viewBox={`0 0 256 256`}
-                                />
-                            </div>
-                        </>
-                    }
-                </div>
-                <br />
-                <div>
-                    <Space>
-                        <Button onClick={refreshPage} type='secondary' theme='solid' size="large">再玩一次</Button>
-                        <Button onClick={handlePrint} type='tertiary' theme='solid' size="large">打印春联</Button>
-                        {/* <Button onClick={genQrCode} type='secondary' theme='solid' size="large">生成二维码</Button> */}
-                        {/* <Title heading={6} style={{ margin: 8 }}>自动打印</Title> */}
-                        {/* <Switch checked={autoPrint} onChange={setAutoPrint} checkedText="开" uncheckedText="关" size="large" /> */}
-                    </Space>
-                </div>
-                <br />
-                <Space>
-                    {!isSubmitted ? (
-                        <>
-                            <Input
-                                value={name}
-                                onChange={(e) => setName(e)}
-                                placeholder="填入你的笔名,不要用真名哦~"
+                <Row type="flex" justify="center" style={{marginTop: '20px'}}>
+                    <Col span={18}>
+                        <Card className="chunlianReviewCard"
+                              headerLine={false}
+                              style={{
+                                  backgroundColor: 'rgba(255,243,195,0.66)'
+                              }}>
+                            <Descriptions
+                                align="center"
+                                size="small"
+                                row
+                                data={[
+                                    {key: '上联', value: `${chunlian.shanglian}`},
+                                    {key: '下联', value: `${chunlian.xialian}`},
+                                    {key: '横批', value: `${chunlian.hengpi}`},
+                                ]}
                             />
-                            <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
-                        </>
-                    ) : (
-                        // Show submission message if submitted
-                        <p>大作已提交!</p>
-                    )}
-                    <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
-                </Space>
-                <p>点击"春联排行榜"查看更多有趣春联</p>
-            </Col>
-        </Row>
-    </>;
+                            <div style={{
+                                margin: '12px 0',
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}>
+                            </div>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row type="flex" justify="center">
+                    <Col span={18}>
+                        <div align="center">
+                            {!isSubmitted ? (
+                                <>
+                                    <div class='hint'>填入你的笔名提交大作(不要用真名哦)</div>
+                                    <Input
+                                        value={name}
+                                        style={{marginTop: '20px'}}
+                                        onChange={(e) => setName(e)}
+                                        placeholder="春联大师"
+                                    />
+                                    <Button onClick={handleNameSubmit} theme='solid' type='warning'
+                                            size="large">提交大作</Button>
+                                </>
+                            ) : (
+                                // Show submission message if submitted
+                                <div class='hint'>
+                                    <p>大作已提交到排行榜!</p>
+                                    <p>微信右上角分享得phone tool icon</p>
+                                </div>
+                            )}
+                        </div>
+                    </Col>
+                </Row>
+                <Row type="flex" justify="center">
+                    <Col span={18}>
+                        <div align="center">
+                            <Button onClick={redirectToHome} theme='solid' type='warning'
+                                    size="large">春联排行榜</Button>
+                        </div>
+                    </Col>
+                </Row>
+
+            </Space>
+        </>;
+    } else {
+        return <>
+            <Header style={{height: 100}}></Header>
+            <Row type="flex" align="middle" gutter={16}>
+                <Col span={7} offset={5} id="printDiv">
+                    <CoupletWidget ref={componentRef} coupletTop={chunlian.hengpi} coupletLeft={chunlian.shanglian}
+                                   coupletRight={chunlian.xialian} font="OrdinaryFont" background="coupletPrinter"/>
+                </Col>
+                <Col span={6} offset={1} id="printHint">
+                    <div className="hint">
+                        <div>
+                            对联正在打印中
+                        </div>
+                        <div className="hint">
+                            打印后，现场的书法家
+                        </div>
+                        <div className="hint">
+                            将为您挥毫泼墨！
+                        </div>
+                        <br/>
+                    </div>
+                    <div>
+                        {loading && <>
+                            <div className="hint">
+                                正在生成分享二维码。。。
+                            </div>
+                            <div className="loading"/>
+                        </>}
+                        {!loading &&
+                            <>
+                                <div className="hint">
+                                    手机扫一扫，分享这份喜悦
+                                </div>
+                                <br/>
+                                <div style={{height: "auto", maxWidth: 180, width: "100%"}} align="left">
+                                    <QRCode
+                                        size={256}
+                                        style={{height: "auto", maxWidth: "100%", width: "100%"}}
+                                        value={shareURL}
+                                        viewBox={`0 0 256 256`}
+                                    />
+                                </div>
+                            </>
+                        }
+                    </div>
+                    <br/>
+                    <div>
+                        <Space>
+                            <Button onClick={refreshPage} type='secondary' theme='solid' size="large">再玩一次</Button>
+                            <Button onClick={handlePrint} type='tertiary' theme='solid' size="large">打印春联</Button>
+                            {/* <Button onClick={genQrCode} type='secondary' theme='solid' size="large">生成二维码</Button> */}
+                            {/* <Title heading={6} style={{ margin: 8 }}>自动打印</Title> */}
+                            {/* <Switch checked={autoPrint} onChange={setAutoPrint} checkedText="开" uncheckedText="关" size="large" /> */}
+                        </Space>
+                    </div>
+                    <br/>
+                    <Space>
+                        {!isSubmitted ? (
+                            <>
+                                <Input
+                                    value={name}
+                                    onChange={(e) => setName(e)}
+                                    placeholder="填入你的笔名,不要用真名哦~"
+                                />
+                                <Button onClick={handleNameSubmit} theme='solid' size="large">提交大作</Button>
+                            </>
+                        ) : (
+                            // Show submission message if submitted
+                            <p>大作已提交!</p>
+                        )}
+                        <Button onClick={redirectToHome} theme='solid' type='secondary' size="large">春联排行榜</Button>
+                    </Space>
+                    <p>点击"春联排行榜"查看更多有趣春联</p>
+                </Col>
+            </Row>
+        </>;
+    }
 }
