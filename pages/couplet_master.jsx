@@ -171,13 +171,10 @@ export default function CoupletMasterComponent() {
           <Layout>
             <Content>
               <Row type="flex" gutter={8}>
-                <Col align="right" span={1} offset={5}>
-                </Col>
-                <Col align="middle" span={12}>
-                  <div className="hint">Marketing Tech荣誉出品</div>
-                </Col>
-                <Col  span={6} />
-                </Row>
+                <Col align="middle" span={24} className="hint">Marketing Tech荣誉出品</Col>
+              </Row>
+              <br/>
+              <br/>
               <br/>
             </Content>
           </Layout>
