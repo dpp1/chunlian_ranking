@@ -152,7 +152,7 @@ export default function CoupletMasterStep5(props) {
             <Space vertical>
                 <Header className="step4Header"/>
                 <div className="hint">
-                    您生成的春联是
+                    恭喜! 您生成的春联是
                 </div>
                 <Row type="flex" justify="center" style={{marginTop: '20px'}}>
                     <Col span={18}>
@@ -181,7 +181,7 @@ export default function CoupletMasterStep5(props) {
                     </Col>
                 </Row>
                 <Row type="flex" justify="center">
-                    <Col span={18}>
+                    <Col span={24}>
                         <div align="center">
                             {!isSubmitted ? (
                                 <>
@@ -193,7 +193,7 @@ export default function CoupletMasterStep5(props) {
                                         placeholder="春联大师"
                                     />
                                     <Button onClick={handleNameSubmit} theme='solid' type='warning'
-                                            size="large">提交大作</Button>
+                                            size="large" style={{marginTop:'20px'}}>提交大作</Button>
                                 </>
                             ) : (
                                 // Show submission message if submitted
@@ -206,10 +206,10 @@ export default function CoupletMasterStep5(props) {
                     </Col>
                 </Row>
                 <Row type="flex" justify="center">
-                    <Col span={18}>
+                    <Col span={24}>
                         <div align="center">
                             <Button onClick={redirectToHome} theme='solid' type='warning'
-                                    size="large">春联排行榜</Button>
+                                    size="large" style={{marginTop:'20px', marginBottom:'10px'}}>春联排行榜</Button>
                         </div>
                     </Col>
                 </Row>
