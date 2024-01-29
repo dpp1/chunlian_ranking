@@ -357,14 +357,29 @@
 }
 
 @media (max-width: 768px) {
+    .background2 .hint{
+        color: #ffffff;
+    }
+
+    .background3 .hint{
+        color: black;
+    }
+
+    .background4 .hint{
+        color: black;
+    }
+
+    .background5 .hint{
+        color: black;
+    }
     .chunlianReviewCard {
         z-index: 2; /* Ensure this is higher than the z-index of the background */
-        backgroundColor: rgba(255, 215, 0, 0.5); /* Adjust transparency as needed */
+        background: linear-gradient(to bottom right, #fae4d8, #ffffff); /* Adjust transparency as needed */
         margin-top: -10px;
     }
 
     .step2Header {
-        height: 100px; /* Decrease the height to use less space */
+        height: 50px; /* Decrease the height to use less space */
     }
 
     .step4Header {
@@ -384,12 +399,18 @@
     }
 
     /* Adjust font sizes for mobile */
-    .hint, .desc {
+    .hint {
         font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    .desc {
+        font-size: 16px; /* Adjust the font size as needed */
+        color: #fd2323;
     }
 
     .title {
         font-size: 32px;
+        color: #fd2323;
     }
 
     /* Adjust background properties */
@@ -403,6 +424,7 @@
         background-size: 100% 100%; /* Stretch background to cover the area */
         height: auto; /* Adjust height to be auto to ensure full page coverage */
         min-height: 100vh; /* Ensure at least the full height of the viewport */
+        background: linear-gradient(to bottom right, #fcb9d3, #b39cf6); /* Replace with your colors */
     }
 
     /*.ant-layout-header {*/

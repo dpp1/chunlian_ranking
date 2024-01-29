@@ -8,7 +8,7 @@ import {
     Card,
     Button,
     Descriptions,
-    ButtonGroup, Layout,
+    ButtonGroup, Layout, Typography,
 } from '@douyinfe/semi-ui';
 import {CoupletWidget} from './CoupletWidget';
 import VoiceInput from '@/src/components/chatBotCouplet/VoiceInput';
@@ -26,6 +26,7 @@ export default function CoupletMasterStep4(props) {
     const [chunlian3, setChunlian3] = useState(
         {hengpi: '', shanglian: '', xialian: ''});
     const voiceInputRef = useRef(null);
+    const { Text } = Typography;
 
     const isOnMobile = useMediaQuery({maxWidth: 767}) || isMobile;
     console.log("isOnMobile", isOnMobile);
@@ -60,15 +61,16 @@ export default function CoupletMasterStep4(props) {
             <Header className="step2Header"/>
             <Row type="flex" justify="center">
                 <Col span={14} align="middle" className="hint" style={{marginBottom: '20px'}}>
-                    请选一幅保存 或点击"再来一次"
+                    <Text> 请选一幅保存 或点击"再来一次"</Text>
                 </Col>
                 <Col span={18}>
                     <Space vertical>
                         <Card className="chunlianReviewCard"
                               headerLine={false}
-                              style={{
-                                  backgroundColor: 'rgba(255,243,195,0.66)'
-                              }}>
+                              // style={{
+                              //     backgroundColor: 'rgba(255,243,195,0.66)'
+                              // }}
+                            >
                             <Descriptions
                                 align="center"
                                 size="small"
@@ -91,9 +93,10 @@ export default function CoupletMasterStep4(props) {
                         <Card
                             className="chunlianReviewCard"
                             headerLine={false}
-                            style={{
-                                backgroundColor: 'rgba(255,243,195,0.66)'
-                            }}>
+                            // style={{
+                            //     backgroundColor: 'rgba(255,243,195,0.66)'
+                            // }}
+                            >
 
                             <Descriptions
                                 align="center"
@@ -117,9 +120,10 @@ export default function CoupletMasterStep4(props) {
                         <Card
                             className="chunlianReviewCard"
                             headerLine={false}
-                            style={{
-                                backgroundColor: 'rgba(255,243,195,0.66)'
-                            }}>
+                            // style={{
+                            //     backgroundColor: 'rgba(255,243,195,0.66)'
+                            // }}
+                            >
                             <Descriptions
                                 align="center"
                                 size="small"
