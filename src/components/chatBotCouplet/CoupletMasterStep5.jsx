@@ -102,14 +102,16 @@ export default function CoupletMasterStep5(props) {
                 chunlianId: uuidv5(JSON.stringify(chunlian), MY_NAMESPACE).toString(),
                 likesCount: 0,
                 creationDate: Date.now(),
-                shareURL: shareURL
             };
-            console.log('New Chunlian Request: ', requestBody);
+            const requestBodyWithShareURL = shareURL === undefined || shareURL === ''
+                ? requestBody
+                : {shareURL: shareURL, ...requestBody}
+            console.log('New Chunlian Request: ', requestBodyWithShareURL);
             post({
                 apiName: 'chunliansApi',
                 path: '/chunlians',
                 options: {
-                    body: requestBody,
+                    body: requestBodyWithShareURL,
                 },
             });
         } catch (error) {
@@ -204,7 +206,7 @@ export default function CoupletMasterStep5(props) {
                             ) : (
                                 // Show submission message if submitted
                                 <div class='hint'>
-                                    <p>大作已提交! 点击春联排行榜查看</p>
+                                    <p>大作已提交! 点击春联排行榜查看分享</p>
                                 </div>
                             )}
                         </div>
