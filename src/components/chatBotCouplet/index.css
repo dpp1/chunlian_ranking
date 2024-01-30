@@ -422,12 +422,22 @@
     }
 
     /* Adjust background images for smaller screens */
-    .background, .background1, .background2, .background3, .background4, .background5 {
+    .background, .background1, .background2, .background3, .background5 {
         /* Adjust background position */
-        background-size: cover; /* Stretch background to cover the area */
+        background-size: 100% 100%; /* Stretch background to cover the area */
+        height: auto; /* Adjust height to be auto to ensure full page coverage */
         min-height: 100vh; /* Ensure at least the full height of the viewport */
         /* Replace with your colors */
-        background: #dd3b43 center center;
+        background: #dd3b43 top center;
+    }
+
+    .background4 {
+        /* Adjust background position */
+        background-size: 100% 100%; /* Stretch background to cover the area */
+        height: auto; /* Adjust height to be auto to ensure full page coverage */
+        min-height: 100vh; /* Ensure at least the full height of the viewport */
+        /* Replace with your colors */
+        background: #dd3b43 top center;
     }
 
     /*.ant-layout-header {*/
