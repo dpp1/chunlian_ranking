@@ -72,7 +72,7 @@ const HomePage = () => {
             <Layout className="chunlian-ranking-layout">
                 <Header>
                     <br/>
-                    <h1 align="center">春联大师</h1>
+                    <h1 align="center">AI春联大师</h1>
                     <br/>
                 </Header>
                 <div style={{padding: '0 20px'}}>
@@ -210,6 +210,7 @@ const ChunlianList = ({orderBy, setOrderBy, searchText, triggerRefresh, router})
     };
 
     const handleScroll = debounce(() => {
+        console.log("Entered handleScroll");
         if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
             console.log("Current isLoading: ", isLoading);
             console.log("Current allItemsLoaded: ", allItemsLoaded);
@@ -375,7 +376,7 @@ const ChunlianItem = ({chunlian}) => {
             {/*    justifyContent: 'flex-end',*/}
             {/*}}>*/}
             {/*    <ButtonGroup theme="borderless" style={{marginTop: 8}}>*/}
-            {/*        <Button>保存为图片</Button>*/}
+            {/*        <Button>保存分享</Button>*/}
             {/*    </ButtonGroup>*/}
             {/*</div>*/}
         </Card>

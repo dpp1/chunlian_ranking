@@ -27,7 +27,7 @@ export default function CoupletMasterStep2(props) {
         <Header className="step2Header"></Header>
         <Row className="firstElementAfterHeader" type="flex" justify="center" align="middle">
             <Col span={18} align="center">
-                <h1 className="title" align="center">春联大师</h1>
+                <h1 className="title" align="center">AI春联大师</h1>
                 <br/>
                 <p align="center" className="desc">留下您的龙年心愿</p>
                 {isFromBooth && (

@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
   return (
       <GlobalContext.Provider value={globalValues}>
         <Head>
-          <title>春联大师</title>
+          <title>AI春联大师</title>
         </Head>
         <RootLayoutThatConfiguresAmplifyOnTheClient>
           <Component {...pageProps} />

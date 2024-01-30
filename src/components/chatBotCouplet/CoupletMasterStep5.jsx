@@ -194,7 +194,7 @@ export default function CoupletMasterStep5(props) {
                                     </div>
                                     <Input
                                         value={name}
-                                        style={{marginTop: '20px'}}
+                                        style={{marginTop: '20px', background: 'white'}}
                                         onChange={(e) => setName(e)}
                                         placeholder="春联大师"
                                     />
@@ -204,21 +204,12 @@ export default function CoupletMasterStep5(props) {
                             ) : (
                                 // Show submission message if submitted
                                 <div class='hint'>
-                                    <p>大作已提交到排行榜!</p>
+                                    <p>大作已提交! 点击春联排行榜查看</p>
                                 </div>
                             )}
                         </div>
                     </Col>
                 </Row>
-                <Row type="flex" justify="center">
-                    <Col span={24}>
-                        <div align="center">
-                            <Button onClick={redirectToHome} theme='solid' type='warning'
-                                    size="large" style={{marginTop: '20px', marginBottom: '10px'}}>春联排行榜</Button>
-                        </div>
-                    </Col>
-                </Row>
-
             </Space>
         </>;
     } else {
