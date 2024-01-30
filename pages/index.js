@@ -154,9 +154,11 @@ const ChunlianList = ({orderBy, setOrderBy, searchText, triggerRefresh, router})
 
     useEffect(() => {
         if (router.isReady) {
-            const queryOrderBy = router.query.orderBy;
+            let queryOrderBy = router.query.orderBy;
             if (queryOrderBy && (queryOrderBy === 'hot' || queryOrderBy === 'new')) {
                 setOrderBy(queryOrderBy);
+            } else {
+                queryOrderBy = orderBy;
             }
             fetchChunlians(1, queryOrderBy);
         }
