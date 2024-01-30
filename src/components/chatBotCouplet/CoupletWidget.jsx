@@ -41,7 +41,6 @@ export const CoupletWidget = React.forwardRef((props, ref) => {
         };
     }
 
-
     return (<div className={props.background} ref={ref} id="coupletPhoto">
         <div className="wrap" >
             <div className="canvas-mode-2">
