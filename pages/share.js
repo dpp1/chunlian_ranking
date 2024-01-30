@@ -108,6 +108,9 @@ const SharePage = () => {
                 <title>来看看我用AI写的春联吧</title>
             </Head>
             <body>
+            <h1 style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}>
+                My Hidden Page Title for Accessibility
+            </h1>
             <main>
                 <div id="container">
                     <div className="share">
@@ -151,7 +154,15 @@ const SharePage = () => {
                         <Col span={24}>
                             <div align="center">
                                 <Button onClick={redirectToHome} theme='solid' type='warning'
-                                        size="large" style={{marginTop:'20px', marginBottom:'10px'}}>春联排行榜</Button>
+                                        size="large" style={{marginTop:'20px', marginBottom:'10px'}}>查看春联排行榜</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row type="flex" justify="center">
+                        <Col span={24}>
+                            <div align="center">
+                                <Button onClick={redirectToHome} theme='solid' type='warning'
+                                        size="large" style={{marginTop:'20px', marginBottom:'10px'}}>创作更多春联</Button>
                             </div>
                         </Col>
                     </Row>
