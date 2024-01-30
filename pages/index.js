@@ -22,6 +22,7 @@ import {
 } from '@douyinfe/semi-ui';
 import GlobalContext from '@/src/globalContext';
 import {useRouter} from "next/router";
+import { debounce } from 'lodash';
 // import { isMobile } from 'react-device-detect';
 
 const {Meta} = Card;
@@ -195,6 +196,7 @@ const ChunlianList = ({orderBy, setOrderBy, searchText, triggerRefresh, router})
                 // Check if all items have been loaded
                 if (chunlians.length >= response.total) {
                     setAllItemsLoaded(true);
+                    console.log("All Items loaded, count of all Chunlians: ", chunlians.length, ", total hits: ", response.total);
                 }
             } else {
                 console.error('Invalid response format:', response);
@@ -203,21 +205,28 @@ const ChunlianList = ({orderBy, setOrderBy, searchText, triggerRefresh, router})
             console.error('Error fetching Chunlians', error);
         } finally {
             setIsLoading(false); // Reset loading state when request is complete
+            console.log("isLoading is false");
         }
     };
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    const handleScroll = debounce(() => {
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+            console.log("Current isLoading: ", isLoading);
+            console.log("Current allItemsLoaded: ", allItemsLoaded);
+        }
+        // Load more items when we reach the bottom of the page and we are not currently loading
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading && !allItemsLoaded) {
             setPage(prevPage => prevPage + 1);
-        };
+        }
+    }, 500); // Debounce by 500s or another suitable value
 
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isLoading, allItemsLoaded]);
+    }, [handleScroll]);
 
     useEffect(() => {
-        if (page > 1) {
+        if (page > 1 && !isLoading && !allItemsLoaded) {
             fetchChunlians(page, orderBy);
         }
     }, [page]);
